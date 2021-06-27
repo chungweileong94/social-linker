@@ -1,9 +1,11 @@
-import {createMuiTheme} from '@material-ui/core';
+import {createMuiTheme, responsiveFontSizes} from '@material-ui/core';
 
-export const theme = createMuiTheme({
-  typography: {
-    allVariants: {
-      fontFamily: 'Comfortaa, cursive',
+export const theme = responsiveFontSizes(
+  createMuiTheme({
+    typography: {
+      allVariants: {
+        fontFamily: 'Comfortaa, cursive',
+      },
     },
-  },
-});
+  }),
+);
