@@ -1,13 +1,48 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import Head from 'next/head';
 import {Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import Typist from 'react-text-typist';
+import {useForm, Controller, SubmitHandler} from 'react-hook-form';
 
 import {Input} from '~/components/Input';
+import {Button} from '~/components/Button';
+import {customRHFInputProps} from '~/utlis';
+
+type FormValues = {
+  title: string;
+  desc: string;
+  links: string[];
+};
+
+const defaultFormValues: FormValues = {
+  title: '',
+  desc: '',
+  links: [''],
+};
 
 const Home: React.FC = () => {
   const styles = useStyles();
+  const form = useForm<FormValues>({defaultValues: defaultFormValues});
+  const {control, handleSubmit} = form;
+
+  const onSubmit: SubmitHandler<FormValues> = data => {
+    console.log(data);
+  };
+
+  // `useMemo` is to prevent `Typist` from re-render/re-animate again
+  const typistTitle = useMemo(
+    () => (
+      <Typist
+        sentences={['SocialLinker', 'your Social Bio']}
+        startDelay={1000}
+        pauseTime={3000}
+        loop={false}
+        className={styles.appName}
+      />
+    ),
+    [styles.appName],
+  );
 
   return (
     <>
@@ -19,21 +54,41 @@ const Home: React.FC = () => {
 
       <div className={styles.container}>
         <Typography variant="h4" className={styles.title}>
-          Welcome to{' '}
-          <Typist
-            sentences={['SocialLinker', 'your Social Bio']}
-            startDelay={1000}
-            pauseTime={3000}
-            loop={false}
-            className={styles.appName}
-          />
+          Welcome to {typistTitle}
         </Typography>
 
-        <Typography className={styles.desc}>- Create your own social bio now! -</Typography>
+        <Typography className={styles.desc}>
+          - Create your own social bio now! -
+        </Typography>
 
-        <form className={styles.form}>
-          <Input name="title" label="Title" variant="outlined" />
-          <Input name="desc" label="Description" variant="outlined" multiline rows={4} />
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+          <Controller
+            control={control}
+            name="title"
+            rules={{required: 'Title is required'}}
+            render={({field}) => (
+              <Input
+                {...customRHFInputProps(form, field)}
+                label="Title"
+                variant="outlined"
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name="desc"
+            render={({field}) => (
+              <Input
+                {...customRHFInputProps(form, field)}
+                label="Description"
+                variant="outlined"
+                multiline
+                rows={4}
+              />
+            )}
+          />
+
+          <Button type="submit">Create My Social Bio</Button>
         </form>
       </div>
     </>
