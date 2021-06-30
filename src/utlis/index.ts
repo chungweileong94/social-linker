@@ -2,6 +2,20 @@ import {TextFieldProps} from '@material-ui/core';
 import {UseFormReturn} from 'react-hook-form';
 
 /**
+ * Get property of an object by dot notation string like `field.0.nestedField`.
+ *
+ * This is primary use for react-hook-form `useFieldArray`,
+ * as all the field array names are represent as dot notation format
+ */
+const getPropertyByDotNotation = (obj: any, fieldName: string) => {
+  const nestedFields = fieldName.split('.');
+  const value = nestedFields.reduce((result, field) => {
+    return result?.[field];
+  }, obj);
+  return value;
+};
+
+/**
  * This helper function also reduce some boilerplate code to create react-hook-form input.
  */
 export const customRHFInputProps = (
@@ -24,7 +38,11 @@ export const customRHFInputProps = (
       onBlur();
       trigger(name);
     },
-    error: !!formState.errors[name]?.message,
-    helperText: formState.errors[name]?.message,
+    error: formState.errors
+      ? !!getPropertyByDotNotation(formState.errors, name)?.message
+      : false,
+    helperText: formState.errors
+      ? getPropertyByDotNotation(formState.errors, name)?.message
+      : undefined,
   };
 };

@@ -1,30 +1,49 @@
 import React, {useMemo} from 'react';
 import Head from 'next/head';
-import {Typography} from '@material-ui/core';
+import {
+  Typography,
+  Divider,
+  InputAdornment,
+  IconButton,
+} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
+import DeleteIcon from '@material-ui/icons/DeleteTwoTone';
 import Typist from 'react-text-typist';
-import {useForm, Controller, SubmitHandler} from 'react-hook-form';
+import {SocialIcon} from 'react-social-icons';
+import {
+  useForm,
+  Controller,
+  SubmitHandler,
+  useFieldArray,
+  useWatch,
+} from 'react-hook-form';
 
 import {Input} from '~/components/Input';
 import {Button} from '~/components/Button';
 import {customRHFInputProps} from '~/utlis';
 
+type Link = {
+  value: string;
+};
+
 type FormValues = {
   title: string;
   desc: string;
-  links: string[];
+  links: Link[];
 };
 
 const defaultFormValues: FormValues = {
   title: '',
   desc: '',
-  links: [''],
+  links: [{value: ''}],
 };
 
 const Home: React.FC = () => {
   const styles = useStyles();
   const form = useForm<FormValues>({defaultValues: defaultFormValues});
   const {control, handleSubmit} = form;
+  const {fields} = useFieldArray({control, name: 'links'});
+  const insertedLinks = useWatch({control, name: 'links', defaultValue: []});
 
   const onSubmit: SubmitHandler<FormValues> = data => {
     console.log(data);
@@ -53,11 +72,11 @@ const Home: React.FC = () => {
       </Head>
 
       <div className={styles.container}>
-        <Typography variant="h4" className={styles.title}>
+        <Typography variant="h4" className={styles.title} component="span">
           Welcome to {typistTitle}
         </Typography>
 
-        <Typography className={styles.desc}>
+        <Typography className={styles.desc} component="span">
           - Create your own social bio now! -
         </Typography>
 
@@ -87,6 +106,59 @@ const Home: React.FC = () => {
               />
             )}
           />
+
+          <div className={styles.linkInputsContainer}>
+            <Typography
+              variant="h6"
+              className={styles.subTitle}
+              component="span"
+            >
+              Social Media Links
+            </Typography>
+            {fields.map((field, index) => {
+              return (
+                <Controller
+                  key={field.id}
+                  control={control}
+                  name={`links.${index}.value`}
+                  rules={{required: 'Please enter a link'}}
+                  defaultValue=""
+                  render={({field: fieldProps}) => (
+                    <div className={styles.linkInputWrapper}>
+                      <Input
+                        {...customRHFInputProps(form, fieldProps)}
+                        type="url"
+                        variant="outlined"
+                        placeholder="Enter URL"
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <SocialIcon
+                                url={fieldProps.value}
+                                bgColor="#666666"
+                                className={styles.socialIcon}
+                              />
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                      {insertedLinks.length > 1 && (
+                        <IconButton
+                          aria-label="delete"
+                          className={styles.deleteButton}
+                          disableRipple
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      )}
+                    </div>
+                  )}
+                />
+              );
+            })}
+          </div>
+
+          <Divider className={styles.divider} />
 
           <Button type="submit">Create My Social Bio</Button>
         </form>
@@ -133,6 +205,48 @@ const useStyles = makeStyles(({spacing, palette, breakpoints}) => ({
 
     [breakpoints.down('xs')]: {
       width: '100%',
+    },
+  },
+  divider: {
+    alignSelf: 'center',
+    width: '60%',
+    margin: spacing(4, 0),
+  },
+  linkInputsContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    marginTop: spacing(4),
+
+    '& .MuiTextField-root': {
+      width: '100%',
+    },
+  },
+  subTitle: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    marginBottom: spacing(2),
+  },
+  linkInputWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginBottom: spacing(2),
+  },
+  socialIcon: {
+    pointerEvents: 'none',
+
+    // `react-social-icons` is using inline-styling
+    width: `${spacing(5)}px !important`,
+    height: `${spacing(5)}px !important`,
+  },
+  deleteButton: {
+    marginTop: spacing(0.5),
+    marginLeft: spacing(1),
+    color: palette.error.main,
+
+    '&:active': {
+      opacity: 0.7,
     },
   },
 }));
