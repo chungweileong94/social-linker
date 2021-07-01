@@ -17,16 +17,9 @@ import {
 import {Input} from '~/components/Input';
 import {Button, IconButton} from '~/components/Button';
 import {customRHFInputProps} from '~/utlis';
+import {SocialPage} from '~/typings';
 
-type Link = {
-  value: string;
-};
-
-type FormValues = {
-  title: string;
-  desc: string;
-  links: Link[];
-};
+type FormValues = SocialPage;
 
 const defaultFormValues: FormValues = {
   title: '',
@@ -45,8 +38,13 @@ const Home: React.FC = () => {
   } = useFieldArray({control, name: 'links'});
   const insertedLinks = useWatch({control, name: 'links', defaultValue: []});
 
-  const onSubmit: SubmitHandler<FormValues> = data => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FormValues> = async data => {
+    const result = await fetch('/api/generate', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+    const payload = await result.json();
+    console.log(`${window.location.origin}/${payload.token}`);
   };
 
   // `useMemo` is to prevent `Typist` from re-render/re-animate again
