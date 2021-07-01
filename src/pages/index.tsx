@@ -1,13 +1,9 @@
 import React, {useMemo} from 'react';
 import Head from 'next/head';
-import {
-  Typography,
-  Divider,
-  InputAdornment,
-  IconButton,
-} from '@material-ui/core';
+import {Typography, Divider, InputAdornment} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/DeleteTwoTone';
+import AddIcon from '@material-ui/icons/Add';
 import Typist from 'react-text-typist';
 import {SocialIcon} from 'react-social-icons';
 import {
@@ -19,7 +15,7 @@ import {
 } from 'react-hook-form';
 
 import {Input} from '~/components/Input';
-import {Button} from '~/components/Button';
+import {Button, IconButton} from '~/components/Button';
 import {customRHFInputProps} from '~/utlis';
 
 type Link = {
@@ -42,7 +38,11 @@ const Home: React.FC = () => {
   const styles = useStyles();
   const form = useForm<FormValues>({defaultValues: defaultFormValues});
   const {control, handleSubmit} = form;
-  const {fields} = useFieldArray({control, name: 'links'});
+  const {
+    fields,
+    append: addLink,
+    remove: removeLink,
+  } = useFieldArray({control, name: 'links'});
   const insertedLinks = useWatch({control, name: 'links', defaultValue: []});
 
   const onSubmit: SubmitHandler<FormValues> = data => {
@@ -135,8 +135,9 @@ const Home: React.FC = () => {
                             <InputAdornment position="start">
                               <SocialIcon
                                 url={fieldProps.value}
-                                bgColor="#666666"
+                                bgColor="#00000030"
                                 className={styles.socialIcon}
+                                tabIndex={-1}
                               />
                             </InputAdornment>
                           ),
@@ -146,7 +147,7 @@ const Home: React.FC = () => {
                         <IconButton
                           aria-label="delete"
                           className={styles.deleteButton}
-                          disableRipple
+                          onClick={() => removeLink(index)}
                         >
                           <DeleteIcon />
                         </IconButton>
@@ -156,6 +157,14 @@ const Home: React.FC = () => {
                 />
               );
             })}
+
+            <Button
+              variant="outlined"
+              startIcon={<AddIcon />}
+              onClick={() => addLink({value: ''})}
+            >
+              Add Link
+            </Button>
           </div>
 
           <Divider className={styles.divider} />
@@ -171,11 +180,8 @@ const useStyles = makeStyles(({spacing, palette, breakpoints}) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'center',
-    height: '100vh',
-    paddingLeft: spacing(2),
-    paddingRight: spacing(2),
+    padding: spacing(12, 2),
   },
   title: {
     textAlign: 'center',
@@ -237,17 +243,13 @@ const useStyles = makeStyles(({spacing, palette, breakpoints}) => ({
     pointerEvents: 'none',
 
     // `react-social-icons` is using inline-styling
-    width: `${spacing(5)}px !important`,
-    height: `${spacing(5)}px !important`,
+    width: `${spacing(4)}px !important`,
+    height: `${spacing(4)}px !important`,
   },
   deleteButton: {
     marginTop: spacing(0.5),
     marginLeft: spacing(1),
     color: palette.error.main,
-
-    '&:active': {
-      opacity: 0.7,
-    },
   },
 }));
 

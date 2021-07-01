@@ -14,6 +14,10 @@ const Input: React.FC<Props> = ({className, ...props}) => {
 const useStyles = makeStyles(({spacing}) => ({
   container: {
     marginBottom: spacing(2),
+
+    '& .MuiInputBase-root': {
+      borderRadius: 10,
+    },
   },
   root: {
     borderRadius: 50,

@@ -16,6 +16,7 @@ const Button: React.FC<Props> = ({classes, ...props}) => {
       classes={{
         ...classes,
         contained: clsx(styles.contained, classes?.contained),
+        outlined: clsx(styles.contained, classes?.contained),
         label: clsx(styles.label, classes?.label),
       }}
       {...props}
