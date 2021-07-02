@@ -13,11 +13,14 @@ import {
   useFieldArray,
   useWatch,
 } from 'react-hook-form';
+import {NextPage} from 'next';
 
 import {Input} from '~/components/Input';
 import {Button, IconButton} from '~/components/Button';
 import {customRHFInputProps} from '~/utlis';
 import {SocialPage} from '~/typings';
+
+import type {GenerateTokenAPIResponse} from './api/generateToken';
 
 type FormValues = SocialPage;
 
@@ -27,7 +30,7 @@ const defaultFormValues: FormValues = {
   links: [{value: ''}],
 };
 
-const Home: React.FC = () => {
+const Home: NextPage = () => {
   const styles = useStyles();
   const form = useForm<FormValues>({defaultValues: defaultFormValues});
   const {control, handleSubmit} = form;
@@ -39,12 +42,22 @@ const Home: React.FC = () => {
   const insertedLinks = useWatch({control, name: 'links', defaultValue: []});
 
   const onSubmit: SubmitHandler<FormValues> = async data => {
-    const result = await fetch('/api/generate', {
-      method: 'POST',
-      body: JSON.stringify(data),
-    });
-    const payload = await result.json();
-    console.log(`${window.location.origin}/${payload.token}`);
+    try {
+      const result = await fetch('/api/generateToken', {
+        method: 'POST',
+        body: JSON.stringify(data),
+      });
+      const payload = (await result.json()) as GenerateTokenAPIResponse;
+
+      if (!payload.success) {
+        throw new Error(payload.error.message);
+      }
+
+      console.log(`${window.location.origin}/page/${payload.data.token}`);
+    } catch (err) {
+      // eslint-disable-next-line no-alert
+      alert(err.message);
+    }
   };
 
   // `useMemo` is to prevent `Typist` from re-render/re-animate again
