@@ -17,7 +17,7 @@ import {NextPage} from 'next';
 
 import {Input} from '~/components/Input';
 import {Button, IconButton} from '~/components/Button';
-import {customRHFInputProps} from '~/utlis';
+import {customRHFInputProps} from '~/utils';
 import {SocialPage} from '~/typings';
 
 import type {GenerateTokenAPIResponse} from './api/generateToken';
@@ -43,6 +43,7 @@ const Home: NextPage = () => {
 
   const onSubmit: SubmitHandler<FormValues> = async data => {
     try {
+      const newWindow = window.open();
       const result = await fetch('/api/generateToken', {
         method: 'POST',
         body: JSON.stringify(data),
@@ -53,7 +54,12 @@ const Home: NextPage = () => {
         throw new Error(payload.error.message);
       }
 
-      console.log(`${window.location.origin}/page/${payload.data.token}`);
+      const url = `${window.location.origin}/page/${payload.data.token}`;
+      if (newWindow) {
+        newWindow.location.href = url;
+      } else {
+        window.location.href = url; // Navigate & trigger hard reload
+      }
     } catch (err) {
       // eslint-disable-next-line no-alert
       alert(err.message);

@@ -7,7 +7,7 @@ import {
 import type {NextApiRequest, NextApiResponse} from 'next';
 
 import {SocialPage} from '~/typings';
-import {encryptText} from '~/utlis/encryption';
+import {encryptText} from '~/utils/encryption';
 
 export type GenerateTokenAPIResponse =
   | SuccessResponse<{token: string}, undefined>
