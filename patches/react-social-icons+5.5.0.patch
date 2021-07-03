@@ -1,0 +1,22 @@
+diff --git a/node_modules/react-social-icons/build/social-icon.js b/node_modules/react-social-icons/build/social-icon.js
+index 1378280..d62a439 100644
+--- a/node_modules/react-social-icons/build/social-icon.js
++++ b/node_modules/react-social-icons/build/social-icon.js
+@@ -59,14 +59,14 @@ function SocialIcon(props) {
+   });
+   return _react.default.createElement("a", _extends({}, rest, {
+     href: url,
+-    className: 'social-icon' + (className ? ' ' + className : ''),
++    className: 's-icon' + (className ? ' ' + className : ''),
+     style: _objectSpread({}, _styles.socialIcon, style),
+     "aria-label": label || networkKey
+   }), _react.default.createElement("div", {
+-    className: "social-container",
++    className: "s-container",
+     style: _styles.socialContainer
+   }, _react.default.createElement("svg", {
+-    className: "social-svg",
++    className: "s-svg",
+     style: _styles.socialSvg,
+     viewBox: "0 0 64 64"
+   }, _react.default.createElement(_background.default, null), _react.default.createElement(_icon.default, {
