@@ -1,3 +1,42 @@
+diff --git a/node_modules/react-social-icons/build/background.js b/node_modules/react-social-icons/build/background.js
+index de7a909..dfa2edf 100644
+--- a/node_modules/react-social-icons/build/background.js
++++ b/node_modules/react-social-icons/build/background.js
+@@ -23,7 +23,7 @@ function Background(_ref) {
+ 
+   // eslint-disable-line react/prop-types
+   return _react.default.createElement("g", _extends({}, props, {
+-    className: "social-svg-background",
++    className: "s-svg-background",
+     style: _styles.socialSvgContent
+   }), _react.default.createElement("circle", {
+     cx: "32",
+diff --git a/node_modules/react-social-icons/build/icon.js b/node_modules/react-social-icons/build/icon.js
+index 57092f8..d5b7e77 100644
+--- a/node_modules/react-social-icons/build/icon.js
++++ b/node_modules/react-social-icons/build/icon.js
+@@ -38,7 +38,7 @@ function Icon(_ref2) {
+       props = _objectWithoutProperties(_ref2, ["fgColor", "networkKey"]);
+ 
+   return _react.default.createElement("g", _extends({}, props, {
+-    className: "social-svg-icon",
++    className: "s-svg-icon",
+     style: getStyle({
+       fgColor: fgColor
+     })
+diff --git a/node_modules/react-social-icons/build/mask.js b/node_modules/react-social-icons/build/mask.js
+index 4b9d42c..58be8d7 100644
+--- a/node_modules/react-social-icons/build/mask.js
++++ b/node_modules/react-social-icons/build/mask.js
+@@ -39,7 +39,7 @@ function Mask(_ref2) {
+       rest = _objectWithoutProperties(_ref2, ["bgColor", "networkKey"]);
+ 
+   return _react.default.createElement("g", _extends({}, rest, {
+-    className: "social-svg-mask",
++    className: "s-svg-mask",
+     style: getStyle({
+       bgColor: bgColor,
+       networkKey: networkKey
 diff --git a/node_modules/react-social-icons/build/social-icon.js b/node_modules/react-social-icons/build/social-icon.js
 index 1378280..d62a439 100644
 --- a/node_modules/react-social-icons/build/social-icon.js
