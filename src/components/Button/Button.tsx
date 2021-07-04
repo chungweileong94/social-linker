@@ -12,9 +12,9 @@ const Button: React.FC<Props> = ({classes, ...props}) => {
       variant="contained"
       color="primary"
       disableElevation
-      disableRipple
       classes={{
         ...classes,
+        text: clsx(styles.contained, classes?.contained),
         contained: clsx(styles.contained, classes?.contained),
         outlined: clsx(styles.contained, classes?.contained),
         label: clsx(styles.label, classes?.label),
@@ -29,10 +29,6 @@ const useStyles = makeStyles(({spacing}) => ({
     borderRadius: 10,
     paddingTop: spacing(1.5),
     paddingBottom: spacing(1.5),
-
-    '&:active': {
-      opacity: 0.7,
-    },
   },
   label: {
     textTransform: 'none',

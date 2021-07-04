@@ -2,11 +2,12 @@ import React, {useEffect} from 'react';
 import {NextPage} from 'next';
 import Head from 'next/head';
 import {useRouter} from 'next/dist/client/router';
-import {Typography} from '@material-ui/core';
+import {Typography, Divider} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 
 import {SocialPage} from '~/typings';
 import {decryptText} from '~/utils/encryption';
+import LinkButton from '~/components/LinkButton';
 
 type Props = {
   pageData: SocialPage | null;
@@ -31,14 +32,21 @@ const Page: NextPage<Props> = ({pageData}) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.container}>
-        <Typography variant="h4" className={styles.title}>
-          {pageData.title}
-        </Typography>
-        {!!pageData.desc && (
-          <Typography className={styles.desc} component="span">
-            {pageData.desc}
+        <div className={styles.contentWrapper}>
+          <Typography variant="h4" className={styles.title}>
+            {pageData.title}
           </Typography>
-        )}
+          {!!pageData.desc && (
+            <Typography className={styles.desc} component="span">
+              {pageData.desc}
+            </Typography>
+          )}
+          <Divider className={styles.divider} />
+
+          {pageData.links.map(link => (
+            <LinkButton key={link.value} url={link.value} />
+          ))}
+        </div>
       </div>
     </>
   );
@@ -58,12 +66,29 @@ Page.getInitialProps = ({query, res}) => {
   }
 };
 
-const useStyles = makeStyles(({spacing}) => ({
+const useStyles = makeStyles(({spacing, breakpoints}) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     padding: spacing(12, 2),
+  },
+  contentWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '40%',
+
+    [breakpoints.down('md')]: {
+      width: '50%',
+    },
+
+    [breakpoints.down('sm')]: {
+      width: '70%',
+    },
+
+    [breakpoints.down('xs')]: {
+      width: '100%',
+    },
   },
   title: {
     textAlign: 'center',
@@ -72,6 +97,14 @@ const useStyles = makeStyles(({spacing}) => ({
   desc: {
     textAlign: 'center',
     marginBottom: spacing(4),
+  },
+  divider: {
+    alignSelf: 'center',
+    width: '80%',
+    margin: spacing(4, 0),
+  },
+  linkButton: {
+    width: '100%',
   },
 }));
 
