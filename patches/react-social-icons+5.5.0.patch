@@ -37,6 +37,17 @@ index 4b9d42c..58be8d7 100644
      style: getStyle({
        bgColor: bgColor,
        networkKey: networkKey
+diff --git a/node_modules/react-social-icons/build/react-social-icons.d.ts b/node_modules/react-social-icons/build/react-social-icons.d.ts
+index 90d0ff1..e756d92 100644
+--- a/node_modules/react-social-icons/build/react-social-icons.d.ts
++++ b/node_modules/react-social-icons/build/react-social-icons.d.ts
+@@ -15,4 +15,5 @@ interface SocialIconProps extends React.DetailedHTMLProps<React.AnchorHTMLAttrib
+   style?: CSSProperties;
+ }
+ declare const SocialIcon: FunctionComponent<SocialIconProps>;
+-export { SocialIcon, SocialIconProps };
++declare const keyFor: (url: string) => string;
++export { SocialIcon, SocialIconProps, keyFor };
 diff --git a/node_modules/react-social-icons/build/social-icon.js b/node_modules/react-social-icons/build/social-icon.js
 index 1378280..d62a439 100644
 --- a/node_modules/react-social-icons/build/social-icon.js
