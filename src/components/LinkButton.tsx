@@ -12,7 +12,6 @@ type Props = {
 const DEFAULT_LABEL = 'link';
 
 const LinkButton: React.FC<Props> = ({url}) => {
-  const iconRef = useRef<HTMLAnchorElement>(null);
   const styles = useStyles();
 
   let label = keyFor(url).replace('sharethis', DEFAULT_LABEL);
@@ -23,12 +22,7 @@ const LinkButton: React.FC<Props> = ({url}) => {
     <Button
       variant="text"
       startIcon={
-        <SocialIcon
-          ref={iconRef}
-          url={url}
-          tabIndex={-1}
-          className={styles.socialIcon}
-        />
+        <SocialIcon url={url} tabIndex={-1} className={styles.socialIcon} />
       }
       className={styles.container}
       onClick={() => window.open(url, '_blank')}
