@@ -97,21 +97,23 @@ const useStyles = makeStyles(({spacing, breakpoints}) => ({
     position: 'absolute',
     left: '-10%',
     bottom: '-10%',
-    width: '30%',
-    aspectRatio: '1',
+    width: '30vw',
+    height: '30vw',
     borderRadius: '50%',
     animation: '$scale_animate_flip 5s infinite',
 
     [breakpoints.down('sm')]: {
       left: '-20%',
       bottom: '-15%',
-      width: '50%',
+      width: '50vw',
+      height: '50vw',
     },
 
     [breakpoints.down('xs')]: {
       left: '-30%',
       bottom: '-10%',
-      width: '60%',
+      width: '60vw',
+      height: '60vw',
     },
   },
   backdropBall2: {
@@ -119,19 +121,22 @@ const useStyles = makeStyles(({spacing, breakpoints}) => ({
     position: 'absolute',
     right: '-20%',
     bottom: '-10%',
-    width: '50%',
+    width: '50vw',
+    height: '50vw',
     aspectRatio: '1',
     borderRadius: '50%',
     animation: '$scale_animate 5s infinite',
 
     [breakpoints.down('sm')]: {
-      width: '70%',
+      width: '70vw',
+      height: '70vw',
     },
 
     [breakpoints.down('xs')]: {
       right: '-40%',
       bottom: '-5%',
-      width: '90%',
+      width: '90vw',
+      height: '90vw',
     },
   },
   '@keyframes scale_animate': {
