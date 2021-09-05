@@ -41,7 +41,7 @@ const Home: NextPage = () => {
   } = useFieldArray({control, name: 'links'});
   const insertedLinks = useWatch({control, name: 'links', defaultValue: []});
 
-  const onSubmit: SubmitHandler<FormValues> = async data => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
       const newWindow = window.open();
       const result = await fetch('/api/generateToken', {
@@ -62,7 +62,7 @@ const Home: NextPage = () => {
       }
     } catch (err) {
       // eslint-disable-next-line no-alert
-      alert(err.message);
+      alert((err as Error).message);
     }
   };
 

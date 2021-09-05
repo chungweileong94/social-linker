@@ -3,7 +3,7 @@ import {IconButton as MUIIconButton, IconButtonProps} from '@material-ui/core';
 
 type Props = IconButtonProps;
 
-const IconButton: React.FC<Props> = props => {
+const IconButton: React.FC<Props> = (props) => {
   return <MUIIconButton {...props} />;
 };
 

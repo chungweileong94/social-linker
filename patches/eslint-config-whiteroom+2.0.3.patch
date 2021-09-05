@@ -1,0 +1,13 @@
+diff --git a/node_modules/eslint-config-whiteroom/lib/share.js b/node_modules/eslint-config-whiteroom/lib/share.js
+index 692d603..780aa64 100644
+--- a/node_modules/eslint-config-whiteroom/lib/share.js
++++ b/node_modules/eslint-config-whiteroom/lib/share.js
+@@ -1,6 +1,7 @@
+ module.exports = {
+   extends: ['prettier'],
+-  plugins: ['prettier', 'import', 'import-helpers'],
++  // `eslint-config-next/core-web-vitals` already has the `import` plugin
++  plugins: ['prettier', 'import-helpers'],
+   rules: {
+     // General
+     'object-curly-spacing': ['error', 'never'],

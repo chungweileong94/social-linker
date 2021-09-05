@@ -15,7 +15,7 @@ export type GenerateTokenAPIResponse =
 
 type Response = NextApiResponse<GenerateTokenAPIResponse>;
 
-export default (req: NextApiRequest, res: Response) => {
+const generateToken = (req: NextApiRequest, res: Response) => {
   try {
     const body = JSON.parse(req.body) as SocialPage;
     const base64String = Buffer.from(JSON.stringify(body)).toString('base64');
@@ -31,3 +31,5 @@ export default (req: NextApiRequest, res: Response) => {
       );
   }
 };
+
+export default generateToken;

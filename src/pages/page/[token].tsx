@@ -61,7 +61,7 @@ const Page: NextPage<Props> = ({pageData}) => {
           )}
           <Divider className={styles.divider} />
 
-          {pageData.links.map(link => (
+          {pageData.links.map((link) => (
             <LinkButton key={link.value} url={link.value} />
           ))}
         </div>

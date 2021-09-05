@@ -26,7 +26,7 @@ export const customRHFInputProps = (
   const {clearErrors, setValue, trigger, formState} = formContext;
   return {
     value,
-    onChange: event => {
+    onChange: (event) => {
       clearErrors(name);
       // Trigger validation when text is empty during text change.
       setValue(name, event.target.value, {

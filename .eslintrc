@@ -1,8 +1,11 @@
 {
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
   "extends": [
     "next",
     "next/core-web-vitals",
-    "whiteroom-react"
+    "whiteroom/react"
   ],
   "rules": {
     "import-helpers/order-imports": [
