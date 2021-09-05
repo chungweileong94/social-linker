@@ -1369,10 +1369,10 @@ eslint-config-prettier@8.3.0:
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.3.0.tgz#f7471b20b6fe8a9a9254cc684454202886a2dd7a"
   integrity sha512-BgZuLUSeKzvlL/VUjx/Yb787VQ26RU3gGjA3iiFvdsp/2bMfVIWUVP7tjxtjS0e+HP409cPlPvNkQloz8C91ew==
 
-eslint-config-whiteroom@2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/eslint-config-whiteroom/-/eslint-config-whiteroom-2.0.3.tgz#cb3118a25d2e8d6f83486c50f658a5ddb9a48f04"
-  integrity sha512-A1vAznBXkAL0w/3kfYhE3KZsUTpsygC3cpgkG8SnqujScNsmeqgTptL6fkmIIBMu2LsRyzx0BAXCqiP9Qj3FLQ==
+eslint-config-whiteroom@2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/eslint-config-whiteroom/-/eslint-config-whiteroom-2.0.4.tgz#8d02ed7fef1e728277a06a0cae32ececf23dd634"
+  integrity sha512-5WPjTm8tPpBCiVAzrtMWnUHhvEAl8+93h/hVdeDa2d0ANJ8JC5y4+d+ktQUxKSb81CM6pkMdJNRqHVlR81hohw==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^4.30.0"
     "@typescript-eslint/parser" "^4.30.0"

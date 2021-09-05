@@ -8,20 +8,6 @@
     "whiteroom/react"
   ],
   "rules": {
-    "import-helpers/order-imports": [
-      "warn",
-      {
-        "newlinesBetween": "always",
-        "groups": [
-          "module",
-          "/^~//",
-          "parent",
-          "sibling",
-          "index"
-        ]
-      }
-    ],
-    "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-use-before-define": "off"
   }
 }
