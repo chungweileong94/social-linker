@@ -13,9 +13,10 @@ export type GenerateTokenAPIResponse =
   | SuccessResponse<{token: string}, undefined>
   | ErrorResponse<undefined>;
 
-type Response = NextApiResponse<GenerateTokenAPIResponse>;
-
-const generateToken = (req: NextApiRequest, res: Response) => {
+const generateToken = (
+  req: NextApiRequest,
+  res: NextApiResponse<GenerateTokenAPIResponse>,
+) => {
   try {
     const body = JSON.parse(req.body) as SocialPage;
     const base64String = Buffer.from(JSON.stringify(body)).toString('base64');

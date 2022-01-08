@@ -1,8 +1,8 @@
 import React from 'react';
-import Document, {Html, Head, Main, NextScript} from 'next/document';
+import NextDocument, {Html, Head, Main, NextScript} from 'next/document';
 import {ServerStyleSheets} from '@material-ui/core/styles';
 
-class MyDocument extends Document {
+class MyDocument extends NextDocument {
   render() {
     return (
       <Html lang="en">
@@ -36,7 +36,7 @@ MyDocument.getInitialProps = async (ctx) => {
       enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
     });
 
-  const initialProps = await Document.getInitialProps(ctx);
+  const initialProps = await NextDocument.getInitialProps(ctx);
 
   return {
     ...initialProps,
