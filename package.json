@@ -25,11 +25,11 @@
   },
   "devDependencies": {
     "@types/react": "17.0.33",
-    "eslint": "^7.32.0",
-    "eslint-config-next": "12.0.7",
-    "eslint-config-whiteroom": "2.0.4",
+    "eslint": "^8.13.0",
+    "eslint-config-next": "12.1.5",
+    "eslint-config-whiteroom": "2.1.0",
     "patch-package": "^6.4.7",
-    "prettier": "2.3.2",
-    "typescript": "^4.4.2"
+    "prettier": "2.6.2",
+    "typescript": "^4.6.3"
   }
 }
