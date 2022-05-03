@@ -1,3 +1,8 @@
 {
-  "extends": ["@remix-run/eslint-config", "@remix-run/eslint-config/node"]
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "extends": [
+    "whiteroom/react"
+  ]
 }
