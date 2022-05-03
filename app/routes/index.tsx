@@ -27,7 +27,7 @@ const Index = () => {
       </h1>
       <p className="mb-20 opacity-50">Create your own social bio now!</p>
 
-      <Form className="grid w-full gap-4 md:w-3/4">
+      <Form className="grid w-full gap-4 md:w-3/4 lg:w-2/3 xl:w-1/2">
         <Input name="title" label="Title" className="w-full" />
 
         <TextArea name="description" label="Description" />
