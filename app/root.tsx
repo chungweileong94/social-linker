@@ -12,7 +12,15 @@ import {
 import styles from './tailwind.css';
 
 export const links: LinksFunction = () => {
-  return [{rel: 'stylesheet', href: styles}];
+  return [
+    {rel: 'stylesheet', href: styles},
+    {rel: 'preconnect', href: 'https://fonts.googleapis.com'},
+    {rel: 'preconnect', href: 'https://fonts.gstatic.com'},
+    {
+      rel: 'stylesheet',
+      href: 'https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600&display=swap',
+    },
+  ];
 };
 
 export const meta: MetaFunction = () => ({
