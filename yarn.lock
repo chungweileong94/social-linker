@@ -6750,6 +6750,11 @@ yn@3.1.1:
   resolved "https://registry.yarnpkg.com/yn/-/yn-3.1.1.tgz#1e87401a09d767c1d5eab26a6e4c185182d2eb50"
   integrity sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==
 
+zod-form-data@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/zod-form-data/-/zod-form-data-1.2.0.tgz#f71b67c48145b48e83357cf58d1797702eefef2d"
+  integrity sha512-Xyp5meGXwQzeaziXm1e6PXBKJIjzllDO0SKHT9CYULiiSWaNEJKLbmDOekYSmHDufUyWdafa1hQWb9bs4G+/YQ==
+
 zod@^3.14.4:
   version "3.14.4"
   resolved "https://registry.yarnpkg.com/zod/-/zod-3.14.4.tgz#e678fe9e5469f4663165a5c35c8f3dc66334a5d6"

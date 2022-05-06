@@ -2,14 +2,16 @@ import {ActionFunction, MetaFunction, redirect} from '@remix-run/node';
 import {Form, useActionData} from '@remix-run/react';
 import Typist from 'react-text-typist';
 import {z} from 'zod';
+import {zfd} from 'zod-form-data';
 
 import {Button} from '~/components/Button';
 import {Input} from '~/components/Input';
 import {TextArea} from '~/components/TextArea';
+import {validateFormData, FormValidationErrors} from '~/utils/form';
 
-type FormErrors = {
-  title?: string[];
-};
+const formSchema = zfd.formData({
+  title: z.string().min(1, 'Title is required'),
+});
 
 export const meta: MetaFunction = () => {
   return {
@@ -18,22 +20,22 @@ export const meta: MetaFunction = () => {
   };
 };
 
+type ActionData = {
+  formErrors: FormValidationErrors<typeof formSchema>;
+};
 export const action: ActionFunction = async ({request}) => {
   const formData = await request.formData();
-  const values = Object.fromEntries(formData.entries());
-
-  const validateResult = z
-    .object({title: z.string().min(1, 'Title is required')})
-    .safeParse(values);
-  if (!validateResult.success) {
-    return validateResult.error.formErrors.fieldErrors as FormErrors;
+  const formErrors = validateFormData(formData, formSchema);
+  if (formErrors) {
+    return {formErrors} as ActionData;
   }
 
   return redirect(``);
 };
 
 const Index = () => {
-  const errors = useActionData<FormErrors>();
+  const {formErrors} = useActionData<ActionData>() ?? {};
+
   return (
     <div className="container mx-auto flex flex-col items-center px-4 py-20">
       <h1 className="mb-5 text-3xl">
@@ -57,8 +59,8 @@ const Index = () => {
           label="Title"
           required
           className="w-full"
-          error={!!errors?.title}
-          helperText={errors?.title?.[0]}
+          error={!!formErrors?.title}
+          helperText={formErrors?.title?.[0]}
         />
 
         <TextArea name="description" label="Description" className="mb-10" />
