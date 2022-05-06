@@ -2,16 +2,8 @@ import React from 'react';
 
 import {mixClassName} from '~/utils';
 
-type Props = {
-  type?: React.HTMLInputTypeAttribute;
-  name: string;
+type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   label: string;
-  className?: string;
-  /**
-   * https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete
-   */
-  autoComplete?: string;
-  required?: boolean;
   error?: boolean;
   helperText?: string;
 };
@@ -21,10 +13,9 @@ const Input: React.FC<Props> = ({
   name,
   label,
   className,
-  autoComplete,
-  required = false,
   error = false,
   helperText,
+  ...props
 }) => {
   return (
     <div className={mixClassName('group', className)}>
@@ -41,12 +32,11 @@ const Input: React.FC<Props> = ({
         type={type}
         name={name}
         id={name}
-        autoComplete={autoComplete}
-        required={required}
         className={mixClassName(
           'mt-1 block w-full rounded-xl border-2 border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm',
           error && 'border-rose-500',
         )}
+        {...props}
       />
       {!!helperText && (
         <span

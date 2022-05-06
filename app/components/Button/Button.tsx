@@ -2,22 +2,19 @@ import React from 'react';
 
 import {mixClassName} from '~/utils';
 
-type Props = {
-  type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
+type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   className?: string;
 };
 
-const Button: React.FC<Props> = ({type, className, children}) => {
+const Button: React.FC<Props> = ({className, ...props}) => {
   return (
     <button
-      type={type}
       className={mixClassName(
         'rounded-xl bg-primary py-3 px-4 text-white hover:bg-opacity-70 active:bg-opacity-80',
         className,
       )}
-    >
-      {children}
-    </button>
+      {...props}
+    />
   );
 };
 
