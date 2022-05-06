@@ -38,7 +38,7 @@ const Index = () => {
 
   return (
     <div className="container mx-auto flex flex-col items-center px-4 py-20">
-      <h1 className="mb-5 text-3xl">
+      <h1 className="min-h-[4rem] text-center text-2xl sm:text-3xl ">
         Welcome to{' '}
         <Typist
           sentences={['SocialLinker', 'your Social Bio']}
@@ -48,7 +48,9 @@ const Index = () => {
           className="text-primary"
         />
       </h1>
-      <p className="mb-20 opacity-50">Create your own social bio now!</p>
+      <p className="mb-20 text-sm opacity-50 sm:text-base">
+        Create your own social bio now!
+      </p>
 
       <Form
         method="post"
