@@ -1,17 +1,16 @@
-import {ActionFunction, MetaFunction, redirect} from '@remix-run/node';
+import {ActionFunction, json, MetaFunction, redirect} from '@remix-run/node';
 import {Form, useActionData} from '@remix-run/react';
 import Typist from 'react-text-typist';
-import {z} from 'zod';
-import {zfd} from 'zod-form-data';
 
 import {Button} from '~/components/Button';
 import {Input} from '~/components/Input';
 import {TextArea} from '~/components/TextArea';
-import {validateFormData, FormValidationErrors} from '~/utils/form';
+import {createBio} from '~/models/Bio.server';
+import {useFormErrors} from '~/utils/form';
 
-const formSchema = zfd.formData({
-  title: z.string().min(1, 'Title is required'),
-});
+type ActionData = {
+  errors: NonNullable<ReturnType<typeof createBio>['errors']>;
+};
 
 export const meta: MetaFunction = () => {
   return {
@@ -20,22 +19,19 @@ export const meta: MetaFunction = () => {
   };
 };
 
-type ActionData = {
-  formErrors: FormValidationErrors<typeof formSchema>;
-};
 export const action: ActionFunction = async ({request}) => {
   const formData = await request.formData();
-  const formErrors = validateFormData(formData, formSchema);
-  if (formErrors) {
-    return {formErrors} as ActionData;
+  const {errors} = createBio(formData);
+  if (errors) {
+    return json<ActionData>({errors});
   }
 
   return redirect(``);
 };
 
 const Index = () => {
-  const {formErrors} = useActionData<ActionData>() ?? {};
-
+  const actionData = useActionData<ActionData>();
+  const {getInputErrorProps} = useFormErrors(actionData?.errors);
   return (
     <div className="container mx-auto flex flex-col items-center px-4 py-20">
       <h1 className="min-h-[4rem] text-center text-2xl sm:text-3xl ">
@@ -58,14 +54,18 @@ const Index = () => {
       >
         <Input
           name="title"
-          label="Title"
           required
+          label="Title"
           className="w-full"
-          error={!!formErrors?.title}
-          helperText={formErrors?.title?.[0]}
+          {...getInputErrorProps('title')}
         />
 
-        <TextArea name="description" label="Description" className="mb-10" />
+        <TextArea
+          name="description"
+          label="Description"
+          className="mb-10"
+          {...getInputErrorProps('description')}
+        />
 
         <Button type="submit">Create My Social Bio</Button>
       </Form>

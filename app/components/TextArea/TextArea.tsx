@@ -4,6 +4,8 @@ import {mixClassName} from '~/utils';
 
 type Props = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
   label: string;
+  error?: boolean;
+  helperText?: string;
 };
 
 const TextArea: React.FC<Props> = ({
@@ -11,6 +13,8 @@ const TextArea: React.FC<Props> = ({
   label,
   rows = 3,
   className,
+  error,
+  helperText,
   ...props
 }) => {
   return (
