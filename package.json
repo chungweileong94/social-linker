@@ -11,7 +11,7 @@
     "dev": "run-p dev:*",
     "dev:css": "yarn generate:css -- --watch",
     "dev:remix": "remix dev",
-    "generate:css": "npx tailwindcss -i ./styles/tailwind.css -o ./app/tailwind.css",
+    "generate:css": "npx tailwindcss -i ./styles/tailwind.css -o ./app/styles/tailwind.css",
     "lint": "tsc && eslint app --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
