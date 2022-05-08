@@ -41,7 +41,7 @@ export const action: ActionFunction = async ({request}) => {
 
 const Index = () => {
   const actionData = useActionData<ActionData>();
-  const {getInputErrorProps} = useFormErrors<FormErrors>(actionData?.errors);
+  const {getInputErrorProps} = useFormErrors(actionData?.errors);
   return (
     <div className="container mx-auto flex flex-col items-center px-4 py-20">
       <h1 className="min-h-[4rem] text-center text-2xl sm:text-3xl ">
