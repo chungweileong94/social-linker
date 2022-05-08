@@ -1,15 +1,24 @@
 import {ActionFunction, json, MetaFunction, redirect} from '@remix-run/node';
 import {Form, useActionData} from '@remix-run/react';
 import Typist from 'react-text-typist';
+import {z} from 'zod';
+import {zfd} from 'zod-form-data';
 
 import {Button} from '~/components/Button';
 import {Input} from '~/components/Input';
 import {TextArea} from '~/components/TextArea';
 import {createBio} from '~/models/Bio.server';
-import {useFormErrors} from '~/utils/form';
+import {ExtractFormErrors, useFormErrors, validateForm} from '~/utils/form';
+
+const FORM_SCHEMA = zfd.formData({
+  title: z.string().min(1, 'Title is required'),
+  description: z.string().optional(),
+});
+
+type FormErrors = ExtractFormErrors<typeof FORM_SCHEMA>;
 
 type ActionData = {
-  errors: NonNullable<ReturnType<typeof createBio>['errors']>;
+  errors: FormErrors;
 };
 
 export const meta: MetaFunction = () => {
@@ -20,18 +29,19 @@ export const meta: MetaFunction = () => {
 };
 
 export const action: ActionFunction = async ({request}) => {
-  const formData = await request.formData();
-  const {errors} = createBio(formData);
-  if (errors) {
-    return json<ActionData>({errors});
+  try {
+    const formData = await request.formData();
+    const bioValues = validateForm(formData, FORM_SCHEMA);
+    const bio = createBio(bioValues);
+    return redirect(``);
+  } catch (errors) {
+    return json<ActionData>({errors: errors as FormErrors});
   }
-
-  return redirect(``);
 };
 
 const Index = () => {
   const actionData = useActionData<ActionData>();
-  const {getInputErrorProps} = useFormErrors(actionData?.errors);
+  const {getInputErrorProps} = useFormErrors<FormErrors>(actionData?.errors);
   return (
     <div className="container mx-auto flex flex-col items-center px-4 py-20">
       <h1 className="min-h-[4rem] text-center text-2xl sm:text-3xl ">

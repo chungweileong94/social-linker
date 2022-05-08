@@ -1,38 +1,47 @@
 import {useCallback} from 'react';
-import {z} from 'zod';
+import {z, ZodError} from 'zod';
 import {zfd} from 'zod-form-data';
 
-type FormDataSchema = ReturnType<typeof zfd['formData']>;
+type ZodFormDataSchema = ReturnType<typeof zfd['formData']>;
 
-type FormErrors<T extends FormDataSchema> = {
-  [K in keyof z.infer<T>]?: string[];
+export type ExtractFormErrors<
+  TSchema extends ZodFormDataSchema = ZodFormDataSchema,
+> = Partial<Record<keyof z.infer<TSchema>, string>>;
+
+const getValidationErrors = (error: any) => {
+  if (!(error instanceof ZodError)) return null;
+  return error.issues.reduce<ExtractFormErrors>((acc, issue) => {
+    acc[issue.path[0]] = issue.message;
+    return acc;
+  }, {});
 };
 
 /**
  * Validate form data against a zod schema.
  */
-export const validateFormData = <T extends FormDataSchema>(
+export const validateForm = <TSchema extends ZodFormDataSchema>(
   formData: FormData,
-  formSchema: T,
+  formSchema: TSchema,
 ) => {
-  const validateResult = formSchema.safeParse(formData);
-  if (validateResult.success) {
-    return null;
+  try {
+    const data = formSchema.parse(formData);
+    return data as z.infer<TSchema>;
+  } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-throw-literal
+    throw getValidationErrors(error);
   }
-  return validateResult.error.formErrors.fieldErrors as FormErrors<T>;
 };
 
-export const useFormErrors = <T extends FormDataSchema>(
-  formErrors?: FormErrors<T> | null,
+export const useFormErrors = <TErrors extends Partial<Record<string, string>>>(
+  formErrors?: TErrors,
 ) => {
   const getInputErrorProps = useCallback(
-    (name: keyof z.infer<T>) => {
-      const errors = formErrors?.[name];
-      const inputProps = {
-        error: !!errors,
-        helperText: errors?.[0],
+    (name: keyof TErrors) => {
+      const errorMessage = formErrors?.[name];
+      return {
+        error: !!errorMessage,
+        helperText: errorMessage,
       };
-      return inputProps;
     },
     [formErrors],
   );
