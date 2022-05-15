@@ -1,21 +1,24 @@
 import {ActionFunction, json, MetaFunction, redirect} from '@remix-run/node';
 import {Form, useActionData} from '@remix-run/react';
+import {useState} from 'react';
 import Typist from 'react-text-typist';
 import {z} from 'zod';
 import {zfd} from 'zod-form-data';
+import {v4 as uuidv4} from 'uuid';
 
 import {Button} from '~/components/Button';
 import {Input} from '~/components/Input';
 import {TextArea} from '~/components/TextArea';
 import {createBio} from '~/models/Bio.server';
-import {ExtractFormErrors, useFormErrors, validateForm} from '~/utils/form';
+import {FormErrors, useFormErrors, validateForm} from '~/utils/form';
 
 const FORM_SCHEMA = zfd.formData({
   title: z.string().min(1, 'Title is required'),
   description: z.string().optional(),
+  links: z
+    .array(z.object({value: z.string().url('Please enter a link')}))
+    .optional(),
 });
-
-type FormErrors = ExtractFormErrors<typeof FORM_SCHEMA>;
 
 type ActionData = {
   errors: FormErrors;
@@ -42,6 +45,8 @@ export const action: ActionFunction = async ({request}) => {
 const Index = () => {
   const actionData = useActionData<ActionData>();
   const {getInputErrorProps} = useFormErrors(actionData?.errors);
+  const [linkIds, setLinkIds] = useState<string[]>([uuidv4()]);
+
   return (
     <div className="container mx-auto flex flex-col items-center px-4 py-20">
       <h1 className="min-h-[4rem] text-center text-2xl sm:text-3xl ">
@@ -76,6 +81,23 @@ const Index = () => {
           className="mb-10"
           {...getInputErrorProps('description')}
         />
+
+        <div className="mb-10">
+          <span className="mb-4 block text-base sm:text-lg">
+            Social Media Links
+          </span>
+
+          {linkIds.map((id, index) => (
+            <div key={id} className="mb-4">
+              <Input
+                name={`links.${index}.value`}
+                className="w-full"
+                placeholder="Enter URL"
+                {...getInputErrorProps(`links.${index}.value`)}
+              />
+            </div>
+          ))}
+        </div>
 
         <Button type="submit">Create My Social Bio</Button>
       </Form>

@@ -1,17 +1,16 @@
+import {unflatten} from 'flattenizer';
 import {useCallback} from 'react';
 import {z, ZodError} from 'zod';
 import {zfd} from 'zod-form-data';
 
 type ZodFormDataSchema = ReturnType<typeof zfd['formData']>;
 
-export type ExtractFormErrors<
-  TSchema extends ZodFormDataSchema = ZodFormDataSchema,
-> = Partial<Record<keyof z.infer<TSchema>, string>>;
+export type FormErrors = Record<string, string>;
 
 const getValidationErrors = (error: any) => {
   if (!(error instanceof ZodError)) return null;
-  return error.issues.reduce<ExtractFormErrors>((acc, issue) => {
-    acc[issue.path[0]] = issue.message;
+  return error.issues.reduce<FormErrors>((acc, issue) => {
+    acc[issue.path.join('.')] = issue.message;
     return acc;
   }, {});
 };
@@ -24,7 +23,9 @@ export const validateForm = <TSchema extends ZodFormDataSchema>(
   formSchema: TSchema,
 ) => {
   try {
-    const data = formSchema.parse(formData);
+    const data = formSchema.parse(
+      unflatten(Object.fromEntries(formData.entries())),
+    );
     return data as z.infer<TSchema>;
   } catch (error) {
     // eslint-disable-next-line @typescript-eslint/no-throw-literal

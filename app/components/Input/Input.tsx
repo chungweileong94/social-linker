@@ -3,7 +3,7 @@ import React from 'react';
 import {mixClassName} from '~/utils';
 
 type Props = React.InputHTMLAttributes<HTMLInputElement> & {
-  label: string;
+  label?: string;
   error?: boolean;
   helperText?: string;
 };
@@ -19,15 +19,17 @@ const Input: React.FC<Props> = ({
 }) => {
   return (
     <div className={mixClassName('group', className)}>
-      <label
-        htmlFor={name}
-        className={mixClassName(
-          'bold lg block text-sm font-medium text-gray-700 transition-colors group-focus-within:text-primary',
-          error && 'text-rose-500',
-        )}
-      >
-        {label}
-      </label>
+      {!!label && (
+        <label
+          htmlFor={name}
+          className={mixClassName(
+            'bold lg block text-sm font-medium text-gray-700 transition-colors group-focus-within:text-primary',
+            error && 'text-rose-500',
+          )}
+        >
+          {label}
+        </label>
+      )}
       <input
         type={type}
         name={name}
