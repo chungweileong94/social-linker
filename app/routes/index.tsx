@@ -1,28 +1,29 @@
-import {ActionFunction, json, MetaFunction, redirect} from '@remix-run/node';
-import {Form, useActionData} from '@remix-run/react';
+import {ActionFunction, MetaFunction, redirect} from '@remix-run/node';
 import {useState} from 'react';
 import Typist from 'react-text-typist';
 import {z} from 'zod';
 import {zfd} from 'zod-form-data';
 import {v4 as uuidv4} from 'uuid';
+import {ValidatedForm, validationError} from 'remix-validated-form';
+import {withZod} from '@remix-validated-form/with-zod';
 
 import {Button} from '~/components/Button';
 import {Input} from '~/components/Input';
 import {TextArea} from '~/components/TextArea';
 import {createBio} from '~/models/Bio.server';
-import {FormErrors, useFormErrors, validateForm} from '~/utils/form';
+import {FormInputController} from '~/components/FormController';
 
-const FORM_SCHEMA = zfd.formData({
-  title: z.string().min(1, 'Title is required'),
-  description: z.string().optional(),
-  links: z
-    .array(z.object({value: z.string().url('Please enter a link')}))
-    .optional(),
-});
-
-type ActionData = {
-  errors: FormErrors;
-};
+const formValidator = withZod(
+  zfd.formData({
+    title: z.string().min(1, 'Title is required'),
+    description: z.string().optional(),
+    links: z.array(
+      z.object({
+        value: z.string().url('Invalid URL'),
+      }),
+    ),
+  }),
+);
 
 export const meta: MetaFunction = () => {
   return {
@@ -32,20 +33,24 @@ export const meta: MetaFunction = () => {
 };
 
 export const action: ActionFunction = async ({request}) => {
-  try {
-    const formData = await request.formData();
-    const bioValues = validateForm(formData, FORM_SCHEMA);
-    const bio = createBio(bioValues);
-    return redirect(``);
-  } catch (errors) {
-    return json<ActionData>({errors: errors as FormErrors});
-  }
+  const formData = await request.formData();
+  const data = await formValidator.validate(formData);
+  if (data.error) return validationError(data.error);
+
+  const bio = createBio(data.data);
+
+  // TODO: Implement
+  console.log(bio);
+
+  return redirect(``);
 };
 
 const Index = () => {
-  const actionData = useActionData<ActionData>();
-  const {getInputErrorProps} = useFormErrors(actionData?.errors);
   const [linkIds, setLinkIds] = useState<string[]>([uuidv4()]);
+
+  const handleAddLink = () => {
+    setLinkIds((prev) => [...prev, uuidv4()]);
+  };
 
   return (
     <div className="container mx-auto flex flex-col items-center px-4 py-20">
@@ -63,23 +68,23 @@ const Index = () => {
         Create your own social bio now!
       </p>
 
-      <Form
+      <ValidatedForm
+        validator={formValidator}
         method="post"
         className="grid w-full gap-4 md:w-3/4 lg:w-2/3 xl:w-1/2"
       >
-        <Input
+        <FormInputController
           name="title"
-          required
-          label="Title"
-          className="w-full"
-          {...getInputErrorProps('title')}
+          render={(props) => (
+            <Input {...props} required label="Title" className="w-full" />
+          )}
         />
 
-        <TextArea
+        <FormInputController
           name="description"
-          label="Description"
-          className="mb-10"
-          {...getInputErrorProps('description')}
+          render={(props) => (
+            <TextArea {...props} label="Description" className="mb-10" />
+          )}
         />
 
         <div className="mb-10">
@@ -89,18 +94,23 @@ const Index = () => {
 
           {linkIds.map((id, index) => (
             <div key={id} className="mb-4">
-              <Input
-                name={`links.${index}.value`}
-                className="w-full"
-                placeholder="Enter URL"
-                {...getInputErrorProps(`links.${index}.value`)}
+              <FormInputController
+                name={`links[${index}].value`}
+                render={(props) => (
+                  <Input
+                    {...props}
+                    className="w-full"
+                    placeholder="Enter URL"
+                  />
+                )}
               />
             </div>
           ))}
+          <Button onClick={handleAddLink}>Add Link</Button>
         </div>
 
         <Button type="submit">Create My Social Bio</Button>
-      </Form>
+      </ValidatedForm>
     </div>
   );
 };
