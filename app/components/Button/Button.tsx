@@ -13,6 +13,7 @@ const Button: React.FC<Props> = ({className, ...props}) => {
         'rounded-xl bg-primary py-3 px-4 text-sm text-white hover:bg-opacity-70 active:bg-opacity-80 sm:text-base',
         className,
       )}
+      type="button"
       {...props}
     />
   );
