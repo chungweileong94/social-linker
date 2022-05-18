@@ -22,8 +22,8 @@ const TextArea: React.FC<Props> = ({
       <label
         htmlFor={name}
         className={mixClassName(
-          'block text-sm font-medium text-gray-700 transition-colors group-focus-within:text-primary',
-          error && 'text-rose-500',
+          'mb-2 block text-sm font-medium text-gray-900 dark:text-gray-400',
+          error && 'text-red-700 dark:text-red-500',
         )}
       >
         {label}
@@ -33,20 +33,21 @@ const TextArea: React.FC<Props> = ({
         name={name}
         rows={rows}
         className={mixClassName(
-          'mt-1 block w-full rounded-xl border-2 border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm',
-          error && 'border-rose-500',
+          'block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500',
+          error &&
+            'border-red-500 bg-red-50 text-red-900 placeholder-red-700 focus:border-red-500 focus:ring-red-500 dark:border-red-400 dark:bg-red-100',
         )}
         {...props}
       />
       {!!helperText && (
-        <span
+        <p
           className={mixClassName(
-            'text-xs',
-            error ? 'text-rose-500' : 'text-gray-400',
+            'mt-2 text-sm text-gray-500 dark:text-gray-400',
+            error && 'text-red-600 dark:text-red-500',
           )}
         >
           {helperText}
-        </span>
+        </p>
       )}
     </div>
   );

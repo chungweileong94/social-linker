@@ -4,13 +4,7 @@
  * @type {import('tailwindcss/tailwind-config').TailwindConfig}
  */
 module.exports = {
-  content: ['./app/**/*.{ts,tsx,jsx,js}'],
-  theme: {
-    extend: {
-      colors: {
-        primary: '#ab47bc',
-      },
-    },
-  },
-  plugins: [require('@tailwindcss/forms')],
+  content: ['./app/**/*.{ts,tsx,jsx,js}', './node_modules/flowbite/**/*.js'],
+  theme: {},
+  plugins: [require('flowbite/plugin')],
 };

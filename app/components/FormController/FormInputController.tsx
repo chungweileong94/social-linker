@@ -15,7 +15,9 @@ type Props = {
 };
 
 const FormInputController: React.FC<Props> = ({name, render}) => {
-  const {getInputProps, error} = useField(name);
+  const {getInputProps, error} = useField(name, {
+    validationBehavior: {initial: 'onSubmit', whenSubmitted: 'onBlur'},
+  });
   return render({...getInputProps(), error: !!error, helperText: error});
 };
 
