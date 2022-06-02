@@ -7,7 +7,7 @@ import {v4 as uuidv4} from 'uuid';
 import {ValidatedForm, validationError} from 'remix-validated-form';
 import {withZod} from '@remix-validated-form/with-zod';
 
-import {Button, OutlinedButton} from '~/components/Button';
+import {Button} from '~/components/Button';
 import {Input} from '~/components/Input';
 import {TextArea} from '~/components/TextArea';
 import {createBio} from '~/models/Bio.server';
@@ -61,7 +61,7 @@ const Index = () => {
           startDelay={1000}
           pauseTime={3000}
           loop={false}
-          className="text-blue-500"
+          className="text-primary"
         />
       </h1>
       <p className="mb-20 text-sm opacity-50 sm:text-base">
@@ -107,9 +107,9 @@ const Index = () => {
               />
             </div>
           ))}
-          <OutlinedButton className="w-full" onClick={handleAddLink}>
+          <Button variant="outline" className="w-full" onClick={handleAddLink}>
             Add Link
-          </OutlinedButton>
+          </Button>
         </div>
 
         <Button type="submit">Create My Social Bio</Button>

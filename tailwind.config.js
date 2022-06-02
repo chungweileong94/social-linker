@@ -6,5 +6,8 @@
 module.exports = {
   content: ['./app/**/*.{ts,tsx,jsx,js}', './node_modules/flowbite/**/*.js'],
   theme: {},
-  plugins: [require('flowbite/plugin')],
+  plugins: [require('daisyui')],
+  daisyui: {
+    prefix: 'dui-',
+  },
 };
