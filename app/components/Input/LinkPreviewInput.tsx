@@ -31,8 +31,7 @@ const LinkPreviewInput: React.FC<Props> = ({
         <SocialIcon
           url={value}
           className="pointer-events-none"
-          bgColor="transparent"
-          fgColor="rgb(31, 178, 166)"
+          bgColor="#7e7e7e"
           style={{width: 40, height: 40}}
         />
       </div>
