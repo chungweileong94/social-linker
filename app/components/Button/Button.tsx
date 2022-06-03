@@ -32,7 +32,7 @@ const Button: React.FC<Props> = ({
   return (
     <button
       className={mixClassName(
-        'dui-btn',
+        'dui-btn gap-2',
         classNameMapper(variant, {standard: '', outline: 'dui-btn-outline'}),
         classNameMapper(color, {
           base: '',

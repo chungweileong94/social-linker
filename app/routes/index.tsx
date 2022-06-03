@@ -12,6 +12,7 @@ import {Input} from '~/components/Input';
 import {TextArea} from '~/components/TextArea';
 import {createBio} from '~/models/Bio.server';
 import {FormInputController} from '~/components/FormController';
+import {AddIcon, CloseIcon} from '~/components/Icon';
 
 const formValidator = withZod(
   zfd.formData({
@@ -111,31 +112,19 @@ const Index = () => {
               />
               {linkIds.length > 1 && (
                 <Button
-                  variant="outline"
+                  // variant="outline"
                   size="sm"
                   shape="square"
                   className="ml-3"
                   onClick={() => handleRemoveLink(id)}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
+                  <CloseIcon />
                 </Button>
               )}
             </div>
           ))}
           <Button variant="outline" className="w-full" onClick={handleAddLink}>
+            <AddIcon />
             Add Link
           </Button>
         </div>
