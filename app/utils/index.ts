@@ -8,7 +8,7 @@ export const mixClassName = (
 };
 
 /**
- * Map value to class name based
+ * Map value to class name
  */
 export const classNameMapper = <TValue extends string>(
   value: TValue,
