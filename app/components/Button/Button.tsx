@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {mixClassName} from '~/utils';
+import {classNameMapper, mixClassName} from '~/utils';
 
 type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'standard' | 'outline';
@@ -18,64 +18,6 @@ type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   className?: string;
 };
 
-const generateButtonVariantClassName = (variant: Props['variant']) => {
-  switch (variant) {
-    case 'outline':
-      return 'dui-btn-outline';
-    case 'standard':
-    default:
-      return '';
-  }
-};
-
-const generateButtonColorClassName = (color: Props['color']) => {
-  switch (color) {
-    case 'primary':
-      return 'dui-btn-primary';
-    case 'secondary':
-      return 'dui-btn-secondary';
-    case 'accent':
-      return 'dui-btn-accent';
-    case 'info':
-      return 'dui-btn-info';
-    case 'success':
-      return 'dui-btn-success';
-    case 'warning':
-      return 'dui-btn-warning';
-    case 'error':
-      return 'dui-btn-error';
-    case 'base':
-    default:
-      return '';
-  }
-};
-
-const generateButtonSizeClassName = (size: Props['size']) => {
-  switch (size) {
-    case 'xs':
-      return 'dui-btn-xs';
-    case 'sm':
-      return 'dui-btn-sm';
-    case 'lg':
-      return 'dui-btn-lg';
-    case 'md':
-    default:
-      return '';
-  }
-};
-
-const generateButtonShape = (shape: Props['shape']) => {
-  switch (shape) {
-    case 'circle':
-      return 'dui-btn-circle';
-    case 'square':
-      return 'dui-btn-square';
-    case 'normal':
-    default:
-      return '';
-  }
-};
-
 const Button: React.FC<Props> = ({
   variant = 'standard',
   color = 'base',
@@ -88,10 +30,28 @@ const Button: React.FC<Props> = ({
     <button
       className={mixClassName(
         'dui-btn',
-        generateButtonVariantClassName(variant),
-        generateButtonColorClassName(color),
-        generateButtonSizeClassName(size),
-        generateButtonShape(shape),
+        classNameMapper(variant, {standard: '', outline: 'dui-btn-outline'}),
+        classNameMapper(color, {
+          base: '',
+          primary: 'dui-btn-primary',
+          secondary: 'dui-btn-secondary',
+          accent: 'dui-btn-accent',
+          info: 'dui-btn-info',
+          success: 'dui-btn-success',
+          warning: 'dui-btn-warning',
+          error: 'dui-btn-error',
+        }),
+        classNameMapper(size, {
+          xs: 'dui-btn-xs',
+          sm: 'dui-btn-sm',
+          md: '',
+          lg: 'dui-btn-lg',
+        }),
+        classNameMapper(shape, {
+          normal: '',
+          circle: 'dui-btn-circle',
+          square: 'dui-btn-square',
+        }),
         className,
       )}
       type="button"
