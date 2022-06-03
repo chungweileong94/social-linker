@@ -8,7 +8,7 @@ import {ValidatedForm, validationError} from 'remix-validated-form';
 import {withZod} from '@remix-validated-form/with-zod';
 
 import {Button} from '~/components/Button';
-import {Input} from '~/components/Input';
+import {Input, LinkPreviewInput} from '~/components/Input';
 import {TextArea} from '~/components/TextArea';
 import {createBio} from '~/models/Bio.server';
 import {FormInputController} from '~/components/FormController';
@@ -98,11 +98,11 @@ const Index = () => {
           </span>
 
           {linkIds.map((id, index) => (
-            <div key={id} className="mb-4 flex flex-row items-center">
+            <div key={id} className="mb-4 flex flex-row items-center gap-3">
               <FormInputController
                 name={`links[${index}].value`}
                 render={(props) => (
-                  <Input
+                  <LinkPreviewInput
                     {...props}
                     required
                     className="w-full"
@@ -112,10 +112,9 @@ const Index = () => {
               />
               {linkIds.length > 1 && (
                 <Button
-                  // variant="outline"
                   size="sm"
                   shape="square"
-                  className="ml-3"
+                  color="error"
                   onClick={() => handleRemoveLink(id)}
                 >
                   <CloseIcon />
