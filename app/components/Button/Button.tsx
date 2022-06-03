@@ -15,6 +15,7 @@ type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
     | 'error';
   size?: 'xs' | 'sm' | 'md' | 'lg';
   shape?: 'normal' | 'square' | 'circle';
+  loading?: boolean;
   className?: string;
 };
 
@@ -23,6 +24,8 @@ const Button: React.FC<Props> = ({
   color = 'base',
   size = 'md',
   shape = 'normal',
+  loading = false,
+  disabled = false,
   className,
   ...props
 }) => {
@@ -52,9 +55,12 @@ const Button: React.FC<Props> = ({
           circle: 'dui-btn-circle',
           square: 'dui-btn-square',
         }),
+        loading && 'dui-loading',
+        disabled && 'dui-btn-disabled',
         className,
       )}
       type="button"
+      disabled={disabled}
       {...props}
     />
   );
