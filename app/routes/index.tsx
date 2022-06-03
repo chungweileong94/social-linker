@@ -52,6 +52,10 @@ const Index = () => {
     setLinkIds((prev) => [...prev, uuidv4()]);
   };
 
+  const handleRemoveLink = (id: string) => {
+    setLinkIds((prev) => prev.filter((linkId) => linkId !== id));
+  };
+
   return (
     <div className="container mx-auto flex flex-col items-center px-4 py-20">
       <h1 className="min-h-[4rem] text-center text-2xl sm:text-3xl ">
@@ -61,7 +65,7 @@ const Index = () => {
           startDelay={1000}
           pauseTime={3000}
           loop={false}
-          className="text-primary"
+          className="text-accent"
         />
       </h1>
       <p className="mb-20 text-sm opacity-50 sm:text-base">
@@ -93,7 +97,7 @@ const Index = () => {
           </span>
 
           {linkIds.map((id, index) => (
-            <div key={id} className="mb-4">
+            <div key={id} className="mb-4 flex flex-row items-center">
               <FormInputController
                 name={`links[${index}].value`}
                 render={(props) => (
@@ -105,6 +109,30 @@ const Index = () => {
                   />
                 )}
               />
+              {linkIds.length > 1 && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  shape="square"
+                  className="ml-3"
+                  onClick={() => handleRemoveLink(id)}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </Button>
+              )}
             </div>
           ))}
           <Button variant="outline" className="w-full" onClick={handleAddLink}>
@@ -112,7 +140,9 @@ const Index = () => {
           </Button>
         </div>
 
-        <Button type="submit">Create My Social Bio</Button>
+        <Button type="submit" color="accent">
+          Create My Social Bio
+        </Button>
       </ValidatedForm>
     </div>
   );
