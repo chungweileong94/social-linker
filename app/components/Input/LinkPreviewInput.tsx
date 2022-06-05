@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {SocialIcon} from 'react-social-icons';
 
-import {mixClassName} from '~/utils';
+import {mixClassName} from '~/utils/styles';
 
 import Input from './Input';
 

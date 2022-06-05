@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {mixClassName} from '~/utils';
+import {mixClassName} from '~/utils/styles';
 
 type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   label?: string;

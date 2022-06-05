@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {classNameMapper, mixClassName} from '~/utils';
+import {classNameMapper, mixClassName} from '~/utils/styles';
 
 type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'standard' | 'outline';
