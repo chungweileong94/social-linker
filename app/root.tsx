@@ -35,7 +35,9 @@ export const CatchBoundary = () => {
   return (
     <html>
       <head>
-        <title>Not Found</title>
+        <title>
+          {caught.status} - {caught.statusText}
+        </title>
         <Meta />
         <Links />
       </head>
