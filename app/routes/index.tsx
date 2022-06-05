@@ -6,7 +6,7 @@ import {zfd} from 'zod-form-data';
 import {v4 as uuidv4} from 'uuid';
 import {ValidatedForm, validationError} from 'remix-validated-form';
 import {withZod} from '@remix-validated-form/with-zod';
-import {useActionData} from '@remix-run/react';
+import {useActionData, useTransition} from '@remix-run/react';
 
 import {Button} from '~/components/Button';
 import {Input, LinkPreviewInput} from '~/components/Input';
@@ -47,6 +47,8 @@ export const action: ActionFunction = async ({request}) => {
 
 const Index = () => {
   const encryptedBioString = useActionData<ActionData>();
+  const {state} = useTransition();
+  const loading = state !== 'idle';
   const [linkIds, setLinkIds] = useState<string[]>([uuidv4()]);
 
   useEffect(() => {
@@ -120,6 +122,7 @@ const Index = () => {
                   size="sm"
                   shape="square"
                   color="error"
+                  disabled={loading}
                   onClick={() => handleRemoveLink(id)}
                 >
                   <CloseIcon />
@@ -127,13 +130,18 @@ const Index = () => {
               )}
             </div>
           ))}
-          <Button variant="outline" className="w-full" onClick={handleAddLink}>
+          <Button
+            variant="outline"
+            className="w-full"
+            disabled={loading}
+            onClick={handleAddLink}
+          >
             <AddIcon />
             Add Link
           </Button>
         </div>
 
-        <Button type="submit" color="accent">
+        <Button type="submit" color="accent" loading={loading}>
           Create My Social Bio
         </Button>
       </ValidatedForm>
