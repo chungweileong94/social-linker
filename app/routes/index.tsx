@@ -1,18 +1,21 @@
-import {ActionFunction, MetaFunction, redirect} from '@remix-run/node';
-import {useState} from 'react';
+import {ActionFunction, json, MetaFunction} from '@remix-run/node';
+import {useEffect, useState} from 'react';
 import Typist from 'react-text-typist';
 import {z} from 'zod';
 import {zfd} from 'zod-form-data';
 import {v4 as uuidv4} from 'uuid';
 import {ValidatedForm, validationError} from 'remix-validated-form';
 import {withZod} from '@remix-validated-form/with-zod';
+import {useActionData} from '@remix-run/react';
 
 import {Button} from '~/components/Button';
 import {Input, LinkPreviewInput} from '~/components/Input';
 import {TextArea} from '~/components/TextArea';
-import {createBio} from '~/models/Bio.server';
+import {encryptBioData} from '~/models/Bio.server';
 import {FormInputController} from '~/components/FormController';
 import {AddIcon, CloseIcon} from '~/components/Icon';
+
+type ActionData = string;
 
 const formValidator = withZod(
   zfd.formData({
@@ -38,16 +41,18 @@ export const action: ActionFunction = async ({request}) => {
   const data = await formValidator.validate(formData);
   if (data.error) return validationError(data.error);
 
-  const bio = createBio(data.data);
-
-  // TODO: Implement
-  console.log(bio);
-
-  return redirect(``);
+  const encryptedBioString = encryptBioData(data.data);
+  return json<ActionData>(encryptedBioString);
 };
 
 const Index = () => {
+  const encryptedBioString = useActionData<ActionData>();
   const [linkIds, setLinkIds] = useState<string[]>([uuidv4()]);
+
+  useEffect(() => {
+    if (!encryptedBioString) return;
+    window.open(`/page/${encryptedBioString}`, '_blank');
+  }, [encryptedBioString]);
 
   const handleAddLink = () => {
     setLinkIds((prev) => [...prev, uuidv4()]);
