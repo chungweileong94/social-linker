@@ -1,6 +1,6 @@
 import {decryptText, encryptText} from '~/utils/encryption.server';
 
-type Bio = {
+export type Bio = {
   title: string;
   description?: string;
   links: Array<{value: string}>;

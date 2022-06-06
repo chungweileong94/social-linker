@@ -4,5 +4,8 @@
   },
   "extends": [
     "whiteroom/react"
-  ]
+  ],
+  "rules": {
+    "@typescript-eslint/no-throw-literal": "off"
+  }
 }
