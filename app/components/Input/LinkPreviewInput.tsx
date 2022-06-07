@@ -32,7 +32,7 @@ const LinkPreviewInput: React.FC<Props> = ({
           url={value}
           className="pointer-events-none"
           bgColor="#7e7e7e"
-          style={{width: 40, height: 40}}
+          style={{width: '2rem', height: '2rem'}}
         />
       </div>
       <Input {...props} className="w-full" onChange={handleOnChange} />
