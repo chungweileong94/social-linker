@@ -169,15 +169,17 @@ const Index = () => {
               )}
             </div>
           ))}
-          <Button
-            variant="outline"
-            className="w-full"
-            disabled={loading}
-            onClick={handleAddLink}
-          >
-            <AddIcon />
-            Add Link
-          </Button>
+          {linkIds.length < 10 && (
+            <Button
+              variant="outline"
+              className="w-full"
+              disabled={loading}
+              onClick={handleAddLink}
+            >
+              <AddIcon />
+              Add Link
+            </Button>
+          )}
         </div>
 
         <Button type="submit" color="accent" loading={loading}>
