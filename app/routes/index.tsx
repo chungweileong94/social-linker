@@ -6,7 +6,7 @@ import {zfd} from 'zod-form-data';
 import {v4 as uuidv4} from 'uuid';
 import {ValidatedForm, validationError} from 'remix-validated-form';
 import {withZod} from '@remix-validated-form/with-zod';
-import {useActionData, useTransition} from '@remix-run/react';
+import {useActionData, useNavigate, useTransition} from '@remix-run/react';
 
 import {Button} from '~/components/Button';
 import {Input, LinkPreviewInput} from '~/components/Input';
@@ -49,6 +49,7 @@ export const action: ActionFunction = async ({request}) => {
 const Index = () => {
   const encryptedBioString = useActionData<ActionData>();
   const {state} = useTransition();
+  const navigate = useNavigate();
   const loading = state !== 'idle';
   const [linkIds, setLinkIds] = useState<string[]>([uuidv4()]);
   const [socialBioLink, setSocialBioLink] = useState<string>();
@@ -57,7 +58,9 @@ const Index = () => {
   useEffect(() => {
     if (!encryptedBioString) return;
     setSocialBioLink(`${window.location.origin}/page/${encryptedBioString}`);
-  }, [encryptedBioString]);
+    setIsCopied(false);
+    navigate({hash: 'result'});
+  }, [encryptedBioString, navigate]);
 
   const handleAddLink = () => {
     setLinkIds((prev) => [...prev, uuidv4()]);
@@ -94,6 +97,33 @@ const Index = () => {
         method="post"
         className="grid w-full gap-4 md:w-3/4 lg:w-2/3 xl:w-1/2"
       >
+        {!!socialBioLink && (
+          <div id="result" className="dui-alert mb-4 shadow-lg">
+            <div>
+              <CheckIcon className="h-6 w-6 flex-shrink-0 text-success" />
+              <span>Your social bio page is ready!</span>
+            </div>
+            <div className="flex-none">
+              <Tooltip text={isCopied ? 'Copied' : 'Copy Link'}>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={handleCopySocialBioLink}
+                >
+                  Copy
+                </Button>
+              </Tooltip>
+              <a
+                href={socialBioLink}
+                target="__blank"
+                className="dui-btn dui-btn-info dui-btn-sm"
+              >
+                View
+              </a>
+            </div>
+          </div>
+        )}
+
         <FormInputController
           name="title"
           render={(props) => (
@@ -153,33 +183,6 @@ const Index = () => {
         <Button type="submit" color="accent" loading={loading}>
           Create My Social Bio
         </Button>
-
-        {!!socialBioLink && (
-          <div className="dui-alert mt-5 shadow-lg">
-            <div>
-              <CheckIcon className="h-6 w-6 flex-shrink-0 text-success" />
-              <span>Your social bio page is ready!</span>
-            </div>
-            <div className="flex-none">
-              <Tooltip text={isCopied ? 'Copied' : 'Copy Link'}>
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={handleCopySocialBioLink}
-                >
-                  Copy
-                </Button>
-              </Tooltip>
-              <a
-                href={socialBioLink}
-                target="__blank"
-                className="dui-btn dui-btn-info dui-btn-sm"
-              >
-                View
-              </a>
-            </div>
-          </div>
-        )}
       </ValidatedForm>
     </div>
   );
