@@ -97,7 +97,7 @@ const Index = () => {
         method="post"
         className="grid w-full gap-4 md:w-3/4 lg:w-2/3 xl:w-1/2"
       >
-        {!!socialBioLink && (
+        {!loading && !!socialBioLink && (
           <div id="result" className="dui-alert mb-4 shadow-lg">
             <div>
               <CheckIcon className="h-6 w-6 flex-shrink-0 text-success" />
