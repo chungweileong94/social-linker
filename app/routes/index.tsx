@@ -13,7 +13,8 @@ import {Input, LinkPreviewInput} from '~/components/Input';
 import {TextArea} from '~/components/TextArea';
 import {encryptBioData} from '~/models/Bio.server';
 import {FormInputController} from '~/components/FormController';
-import {AddIcon, CloseIcon} from '~/components/Icon';
+import {AddIcon, CheckIcon, CloseIcon} from '~/components/Icon';
+import {Tooltip} from '~/components/Tooltip';
 
 type ActionData = string;
 
@@ -50,10 +51,12 @@ const Index = () => {
   const {state} = useTransition();
   const loading = state !== 'idle';
   const [linkIds, setLinkIds] = useState<string[]>([uuidv4()]);
+  const [socialBioLink, setSocialBioLink] = useState<string>();
+  const [isCopied, setIsCopied] = useState<boolean>(false);
 
   useEffect(() => {
     if (!encryptedBioString) return;
-    window.open(`/page/${encryptedBioString}`, '_blank');
+    setSocialBioLink(`${window.location.origin}/page/${encryptedBioString}`);
   }, [encryptedBioString]);
 
   const handleAddLink = () => {
@@ -62,6 +65,12 @@ const Index = () => {
 
   const handleRemoveLink = (id: string) => {
     setLinkIds((prev) => prev.filter((linkId) => linkId !== id));
+  };
+
+  const handleCopySocialBioLink = async () => {
+    if (!socialBioLink) return;
+    await navigator.clipboard.writeText(socialBioLink);
+    setIsCopied(true);
   };
 
   return (
@@ -144,6 +153,33 @@ const Index = () => {
         <Button type="submit" color="accent" loading={loading}>
           Create My Social Bio
         </Button>
+
+        {!!socialBioLink && (
+          <div className="dui-alert mt-5 shadow-lg">
+            <div>
+              <CheckIcon className="h-6 w-6 flex-shrink-0 text-success" />
+              <span>Your social bio page is ready!</span>
+            </div>
+            <div className="flex-none">
+              <Tooltip text={isCopied ? 'Copied' : 'Copy Link'}>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={handleCopySocialBioLink}
+                >
+                  Copy
+                </Button>
+              </Tooltip>
+              <a
+                href={socialBioLink}
+                target="__blank"
+                className="dui-btn dui-btn-info dui-btn-sm"
+              >
+                View
+              </a>
+            </div>
+          </div>
+        )}
       </ValidatedForm>
     </div>
   );
