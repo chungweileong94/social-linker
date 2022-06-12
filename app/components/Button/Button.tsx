@@ -3,7 +3,7 @@ import React from 'react';
 import {classNameMapper, mixClassName} from '~/utils/styles';
 
 type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: 'standard' | 'outline';
+  variant?: 'standard' | 'outline' | 'ghost';
   color?:
     | 'base'
     | 'primary'
@@ -33,7 +33,11 @@ const Button: React.FC<Props> = ({
     <button
       className={mixClassName(
         'dui-btn gap-2',
-        classNameMapper(variant, {standard: '', outline: 'dui-btn-outline'}),
+        classNameMapper(variant, {
+          standard: '',
+          outline: 'dui-btn-outline',
+          ghost: 'dui-btn-ghost',
+        }),
         classNameMapper(color, {
           base: '',
           primary: 'dui-btn-primary',
