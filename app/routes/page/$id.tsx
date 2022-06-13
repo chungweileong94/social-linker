@@ -1,10 +1,15 @@
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-import {json, LoaderFunction, Response} from '@remix-run/node';
+import {json, LoaderFunction, MetaFunction, Response} from '@remix-run/node';
 import {useLoaderData} from '@remix-run/react';
 
 import {Bio, decryptBioData} from '~/models/Bio.server';
 
 type LoaderData = Bio;
+
+export const meta: MetaFunction = ({data}) => {
+  const {title, description} = data as LoaderData;
+  return {title, description};
+};
 
 export const loader: LoaderFunction = async ({params}) => {
   const pageId = params.id;
