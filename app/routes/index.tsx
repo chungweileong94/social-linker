@@ -1,12 +1,12 @@
 import {ActionFunction, json, MetaFunction} from '@remix-run/node';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import Typist from 'react-text-typist';
 import {z} from 'zod';
 import {zfd} from 'zod-form-data';
 import {v4 as uuidv4} from 'uuid';
 import {ValidatedForm, validationError} from 'remix-validated-form';
 import {withZod} from '@remix-validated-form/with-zod';
-import {useActionData, useNavigate, useTransition} from '@remix-run/react';
+import {useActionData, useTransition} from '@remix-run/react';
 
 import {Button} from '~/components/Button';
 import {Input, LinkPreviewInput} from '~/components/Input';
@@ -43,24 +43,23 @@ export const action: ActionFunction = async ({request}) => {
   if (data.error) return validationError(data.error);
 
   const encryptedBioString = encryptBioData(data.data);
-  return json<ActionData>(encryptedBioString);
+  return json<ActionData>(
+    `${request.headers.get('origin')}/page/${encryptedBioString}`,
+  );
 };
 
 const Index = () => {
-  const encryptedBioString = useActionData<ActionData>();
+  const socialURL = useActionData<ActionData>();
   const {state} = useTransition();
-  const navigate = useNavigate();
   const loading = state !== 'idle';
   const [linkIds, setLinkIds] = useState<string[]>([uuidv4()]);
-  const [socialBioLink, setSocialBioLink] = useState<string>();
   const [isCopied, setIsCopied] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (!encryptedBioString) return;
-    setSocialBioLink(`${window.location.origin}/page/${encryptedBioString}`);
+  const [prevSocialURL, setPrevSocialURL] = useState<string>();
+  if (prevSocialURL !== socialURL) {
+    setPrevSocialURL(socialURL);
     setIsCopied(false);
-    navigate({hash: 'result'});
-  }, [encryptedBioString, navigate]);
+  }
 
   const handleAddLink = () => {
     setLinkIds((prev) => [...prev, uuidv4()]);
@@ -71,8 +70,8 @@ const Index = () => {
   };
 
   const handleCopySocialBioLink = async () => {
-    if (!socialBioLink) return;
-    await navigator.clipboard.writeText(socialBioLink);
+    if (!socialURL) return;
+    await navigator.clipboard.writeText(socialURL);
     setIsCopied(true);
   };
 
@@ -91,13 +90,12 @@ const Index = () => {
       <p className="mb-20 text-sm opacity-50 sm:text-base">
         Create your own social bio now!
       </p>
-
       <ValidatedForm
         validator={formValidator}
         method="post"
         className="grid w-full gap-4 md:w-3/4 lg:w-2/3 xl:w-1/2"
       >
-        {!loading && !!socialBioLink && (
+        {!loading && !!socialURL && (
           <div id="result" className="dui-alert mb-4 shadow-lg">
             <div>
               <CheckIcon className="h-6 w-6 flex-shrink-0 text-success" />
@@ -114,7 +112,7 @@ const Index = () => {
                 </Button>
               </Tooltip>
               <a
-                href={socialBioLink}
+                href={socialURL}
                 target="__blank"
                 className="dui-btn dui-btn-info dui-btn-sm"
               >
