@@ -96,7 +96,7 @@ const Index = () => {
         className="grid w-full gap-4 md:w-3/4 lg:w-2/3 xl:w-1/2"
       >
         {!loading && !!socialURL && (
-          <div id="result" className="dui-alert mb-4 shadow-lg">
+          <div id="result" className="dui-alert sticky top-4 mb-4 shadow-lg">
             <div>
               <CheckIcon className="h-6 w-6 flex-shrink-0 text-success" />
               <span>Your social bio page is ready!</span>
