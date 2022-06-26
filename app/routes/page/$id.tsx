@@ -7,8 +7,8 @@ import {Bio, decryptBioData} from '~/models/Bio.server';
 type LoaderData = Bio;
 
 export const meta: MetaFunction = ({data}) => {
-  const {title, description} = data as LoaderData;
-  return {title, description};
+  const {title, desc} = data as LoaderData;
+  return {title, description: desc};
 };
 
 export const loader: LoaderFunction = async ({params}) => {
@@ -31,8 +31,10 @@ export const loader: LoaderFunction = async ({params}) => {
 const BioPage = () => {
   const bio = useLoaderData<LoaderData>();
   return (
-    // TODO: UI
-    <div className="p-6">
+    <div className="container mx-auto flex flex-col items-center px-4 py-20">
+      <h1 className="mb-4 text-2xl font-bold sm:text-3xl">{bio.title}</h1>
+      {!!bio.desc && <p className="mb-20 text-sm sm:text-base">{bio.desc}</p>}
+      {/* TODO: UI */}
       <div className="dui-mockup-code">
         <pre>
           <code>{JSON.stringify(bio, null, 2)}</code>

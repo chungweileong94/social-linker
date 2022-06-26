@@ -2,7 +2,7 @@ import {decryptText, encryptText} from '~/utils/encryption.server';
 
 export type Bio = {
   title: string;
-  description?: string;
+  desc?: string;
   links: Array<{value: string}>;
 };
 

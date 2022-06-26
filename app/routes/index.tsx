@@ -21,7 +21,7 @@ type ActionData = string;
 const formValidator = withZod(
   zfd.formData({
     title: z.string().min(1, 'Title is required'),
-    description: z.string().optional(),
+    desc: z.string().optional(),
     links: z.array(
       z.object({
         value: z.string().url('Invalid URL'),
@@ -77,7 +77,7 @@ const Index = () => {
 
   return (
     <div className="container mx-auto flex flex-col items-center px-4 py-20">
-      <h1 className="min-h-[4rem] text-center text-2xl sm:text-3xl ">
+      <h1 className="min-h-[4rem] text-center text-2xl sm:text-3xl">
         Welcome to{' '}
         <Typist
           sentences={['SocialLinker', 'your Social Bio']}
@@ -130,7 +130,7 @@ const Index = () => {
         />
 
         <FormInputController
-          name="description"
+          name="desc"
           render={(props) => (
             <TextArea {...props} label="Description" className="mb-10" />
           )}
