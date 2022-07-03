@@ -42,7 +42,7 @@ const BioPage = () => {
 
       <div className="flex w-full flex-col gap-3">
         {bio.links.map((link) => (
-          <SocialLink url={link.value} />
+          <SocialLink key={link.value} url={link.value} />
         ))}
       </div>
     </div>
