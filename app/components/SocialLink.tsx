@@ -17,15 +17,14 @@ const SocialLink: React.FC<Props> = ({url}) => {
       target="_blank"
       className="rounded-lg border-2 border-transparent transition-all hover:scale-105 hover:border-accent active:scale-95"
     >
-      <div className="flex w-full flex-row items-center justify-start gap-3 p-4">
+      <span className="flex w-full flex-row items-center justify-start gap-3 p-4">
         <SocialIcon
           url={url}
-          className="pointer-events-none"
           bgColor="#7e7e7e"
           style={{width: '2rem', height: '2rem'}}
         />
         <span className="truncate normal-case">{label}</span>
-      </div>
+      </span>
     </a>
   );
 };
