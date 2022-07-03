@@ -2,7 +2,7 @@
 import {json, LoaderFunction, MetaFunction, Response} from '@remix-run/node';
 import {useLoaderData} from '@remix-run/react';
 
-import SocialLink from '~/components/SocialLink';
+import {SocialLink} from '~/components/SocialLink';
 import {Bio, decryptBioData} from '~/models/Bio.server';
 
 type LoaderData = Bio;
