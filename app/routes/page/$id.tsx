@@ -2,6 +2,7 @@
 import {json, LoaderFunction, MetaFunction, Response} from '@remix-run/node';
 import {useLoaderData} from '@remix-run/react';
 
+import SocialLink from '~/components/SocialLink';
 import {Bio, decryptBioData} from '~/models/Bio.server';
 
 type LoaderData = Bio;
@@ -31,14 +32,18 @@ export const loader: LoaderFunction = async ({params}) => {
 const BioPage = () => {
   const bio = useLoaderData<LoaderData>();
   return (
-    <div className="container mx-auto flex flex-col items-center px-4 py-20">
-      <h1 className="mb-4 text-2xl font-bold sm:text-3xl">{bio.title}</h1>
-      {!!bio.desc && <p className="mb-20 text-sm sm:text-base">{bio.desc}</p>}
-      {/* TODO: UI */}
-      <div className="dui-mockup-code">
-        <pre>
-          <code>{JSON.stringify(bio, null, 2)}</code>
-        </pre>
+    <div className="container mx-auto flex flex-col items-center py-20">
+      <h1 className="mb-4 text-center text-2xl font-bold sm:text-3xl">
+        {bio.title}
+      </h1>
+      {!!bio.desc && (
+        <p className="mb-20 text-center text-sm sm:text-base">{bio.desc}</p>
+      )}
+
+      <div className="flex w-full flex-col gap-3">
+        {bio.links.map((link) => (
+          <SocialLink url={link.value} />
+        ))}
       </div>
     </div>
   );

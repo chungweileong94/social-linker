@@ -76,7 +76,7 @@ const Index = () => {
   };
 
   return (
-    <div className="container mx-auto flex flex-col items-center px-4 py-20">
+    <div className="container mx-auto flex flex-col items-center py-20">
       <h1 className="min-h-[4rem] text-center text-2xl sm:text-3xl">
         Welcome to{' '}
         <Typist
@@ -93,7 +93,7 @@ const Index = () => {
       <ValidatedForm
         validator={formValidator}
         method="post"
-        className="grid w-full gap-4 md:w-3/4 lg:w-2/3 xl:w-1/2"
+        className="grid w-full gap-4"
       >
         {!loading && !!socialURL && (
           <div id="result" className="dui-alert sticky top-4 mb-4 shadow-lg">
