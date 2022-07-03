@@ -3,10 +3,9 @@
     "project": "./tsconfig.json"
   },
   "extends": [
-    "plugin:@next/next/recommended",
     "whiteroom/react"
   ],
   "rules": {
-    "@typescript-eslint/no-use-before-define": "off"
+    "@typescript-eslint/no-throw-literal": "off"
   }
 }
