@@ -1,4 +1,4 @@
-import {ActionFunction, json, MetaFunction} from '@remix-run/node';
+import {ActionArgs, json, MetaFunction} from '@remix-run/node';
 import {useState} from 'react';
 import Typist from 'react-text-typist';
 import {z} from 'zod';
@@ -16,7 +16,13 @@ import {FormInputController} from '~/components/FormController';
 import {AddIcon, CheckIcon, CloseIcon} from '~/components/Icon';
 import {Tooltip} from '~/components/Tooltip';
 
-type ActionData = string;
+type SuccessActionData = {
+  success: true;
+  data: string;
+};
+
+const isSuccessActionData = (response: any): response is SuccessActionData =>
+  !!response?.success;
 
 const formValidator = withZod(
   zfd.formData({
@@ -37,19 +43,23 @@ export const meta: MetaFunction = () => {
   };
 };
 
-export const action: ActionFunction = async ({request}) => {
+export const action = async ({request}: ActionArgs) => {
   const formData = await request.formData();
   const data = await formValidator.validate(formData);
   if (data.error) return validationError(data.error);
 
   const encryptedBioString = encryptBioData(data.data);
-  return json<ActionData>(
-    `${request.headers.get('origin')}/page/${encryptedBioString}`,
-  );
+  return json<SuccessActionData>({
+    success: true,
+    data: `${request.headers.get('origin')}/page/${encryptedBioString}`,
+  });
 };
 
 const Index = () => {
-  const socialURL = useActionData<ActionData>();
+  const actionData = useActionData<typeof action>();
+  const socialURL = isSuccessActionData(actionData)
+    ? actionData.data
+    : undefined;
   const {state} = useTransition();
   const loading = state !== 'idle';
   const [linkIds, setLinkIds] = useState<string[]>([uuidv4()]);

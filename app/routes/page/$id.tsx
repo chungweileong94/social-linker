@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-import {json, LoaderFunction, MetaFunction, Response} from '@remix-run/node';
+import {json, LoaderArgs, MetaFunction, Response} from '@remix-run/node';
 import {useLoaderData} from '@remix-run/react';
 
 import {SocialLink} from '~/components/SocialLink';
@@ -12,7 +12,7 @@ export const meta: MetaFunction = ({data}) => {
   return {title, description: desc};
 };
 
-export const loader: LoaderFunction = async ({params}) => {
+export const loader = async ({params}: LoaderArgs) => {
   const pageId = params.id;
   if (!pageId) {
     throw new Response(undefined, {status: 404});
@@ -30,7 +30,7 @@ export const loader: LoaderFunction = async ({params}) => {
 };
 
 const BioPage = () => {
-  const bio = useLoaderData<LoaderData>();
+  const bio = useLoaderData<typeof loader>();
   return (
     <div>
       <div className="pointer-events-none fixed left-0 top-0 bottom-0 right-0 opacity-40">

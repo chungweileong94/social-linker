@@ -1,0 +1,21 @@
+diff --git a/node_modules/remix-validated-form/dist/types/server.d.ts b/node_modules/remix-validated-form/dist/types/server.d.ts
+index 69f833e..55f3029 100644
+--- a/node_modules/remix-validated-form/dist/types/server.d.ts
++++ b/node_modules/remix-validated-form/dist/types/server.d.ts
+@@ -1,5 +1,6 @@
++import {TypedResponse} from '@remix-run/server-runtime';
+ import { FORM_DEFAULTS_FIELD } from "./internal/constants";
+-import { ValidatorError } from "./validation/types";
++import { ValidationErrorResponseData, ValidatorError } from "./validation/types";
+ /**
+  * Takes the errors from a `Validator` and returns a `Response`.
+  * When you return this from your action, `ValidatedForm` on the frontend will automatically
+@@ -14,7 +15,7 @@ import { ValidatorError } from "./validation/types";
+  * if (result.error) return validationError(result.error, result.submittedData);
+  * ```
+  */
+-export declare function validationError(error: ValidatorError, repopulateFields?: unknown, init?: ResponseInit): Response;
++export declare function validationError(error: ValidatorError, repopulateFields?: unknown, init?: ResponseInit): TypedResponse<ValidationErrorResponseData>;
+ export declare type FormDefaults = {
+     [formDefaultsKey: `${typeof FORM_DEFAULTS_FIELD}_${string}`]: any;
+ };
