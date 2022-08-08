@@ -13,7 +13,8 @@
     "dev:remix": "remix dev",
     "generate:css": "npx tailwindcss -i ./styles/tailwind.css -o ./app/styles/tailwind.css",
     "lint": "tsc && eslint app --ext .js,.jsx,.ts,.tsx",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "dotenv-pull": "npx dotenv-vault@latest pull"
   },
   "dependencies": {
     "@remix-run/node": "^1.6.5",
