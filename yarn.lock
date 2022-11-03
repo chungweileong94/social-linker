@@ -2946,10 +2946,22 @@ doctrine@^3.0.0:
   dependencies:
     esutils "^2.0.2"
 
+dotenv-vault-core@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/dotenv-vault-core/-/dotenv-vault-core-0.6.1.tgz#f228ae3a60c1a2d08703851f0912df0b3d0aad7c"
+  integrity sha512-BLyzb+Y/ai4py2SF7nnfPF2nb+8QygTIVJxFvn6DyfCoajUfIjOQF3+FxQ2eF3s84kHJa8wSaPKoxIT3Vg4DHQ==
+  dependencies:
+    dotenv "^16.0.3"
+
 dotenv@^16.0.0:
   version "16.0.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.0.tgz#c619001253be89ebb638d027b609c75c26e47411"
   integrity sha512-qD9WU0MPM4SWLPJy/r2Be+2WgQj8plChsyrCNQzW/0WjvcJQiKQJ9mH3ZgB3fxbUUxgc/11ZJ0Fi5KiimWGz2Q==
+
+dotenv@^16.0.3:
+  version "16.0.3"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.3.tgz#115aec42bac5053db3c456db30cc243a5a836a07"
+  integrity sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==
 
 duplexify@^3.5.0, duplexify@^3.6.0:
   version "3.7.1"
@@ -7806,10 +7818,10 @@ zod-form-data@^1.2.0:
   resolved "https://registry.yarnpkg.com/zod-form-data/-/zod-form-data-1.2.0.tgz#f71b67c48145b48e83357cf58d1797702eefef2d"
   integrity sha512-Xyp5meGXwQzeaziXm1e6PXBKJIjzllDO0SKHT9CYULiiSWaNEJKLbmDOekYSmHDufUyWdafa1hQWb9bs4G+/YQ==
 
-zod@^3.14.4:
-  version "3.14.4"
-  resolved "https://registry.yarnpkg.com/zod/-/zod-3.14.4.tgz#e678fe9e5469f4663165a5c35c8f3dc66334a5d6"
-  integrity sha512-U9BFLb2GO34Sfo9IUYp0w3wJLlmcyGoMd75qU9yf+DrdGA4kEx6e+l9KOkAlyUO0PSQzZCa3TR4qVlcmwqSDuw==
+zod@^3.19.1:
+  version "3.19.1"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-3.19.1.tgz#112f074a97b50bfc4772d4ad1576814bd8ac4473"
+  integrity sha512-LYjZsEDhCdYET9ikFu6dVPGp2YH9DegXjdJToSzD9rO6fy4qiRYFoyEYwps88OseJlPyl2NOe2iJuhEhL7IpEA==
 
 zustand@^4.0.0-rc.1:
   version "4.0.0"
