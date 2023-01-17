@@ -54,17 +54,20 @@ index 4b9d42c84a8ff1c4e9adc2718f3c8c357511e46a..58be8d7af496e35ddf861a55f63b3334
        bgColor: bgColor,
        networkKey: networkKey
 diff --git a/build/social-icon.js b/build/social-icon.js
-index 13782805974b60e960c3eafdcc45a14812e4b7be..d62a439c60c7d06ca6ea95e41021240e453cac5e 100644
+index 13782805974b60e960c3eafdcc45a14812e4b7be..f7552d1a23e8d14178fa005fe61a012d72b30358 100644
 --- a/build/social-icon.js
 +++ b/build/social-icon.js
-@@ -59,14 +59,14 @@ function SocialIcon(props) {
+@@ -57,16 +57,14 @@ function SocialIcon(props) {
+     url: url,
+     network: network
    });
-   return _react.default.createElement("a", _extends({}, rest, {
-     href: url,
+-  return _react.default.createElement("a", _extends({}, rest, {
+-    href: url,
 -    className: 'social-icon' + (className ? ' ' + className : ''),
++  return _react.default.createElement("span", _extends({}, rest, {
 +    className: 's-icon' + (className ? ' ' + className : ''),
      style: _objectSpread({}, _styles.socialIcon, style),
-     "aria-label": label || networkKey
+-    "aria-label": label || networkKey
    }), _react.default.createElement("div", {
 -    className: "social-container",
 +    className: "s-container",
