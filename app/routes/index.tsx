@@ -1,6 +1,5 @@
 import {ActionArgs, json, MetaFunction} from '@remix-run/node';
 import {useState} from 'react';
-import Typist from 'react-text-typist';
 import {z} from 'zod';
 import {zfd} from 'zod-form-data';
 import {v4 as uuidv4} from 'uuid';
@@ -15,6 +14,7 @@ import {encryptBioData} from '~/models/Bio.server';
 import {FormInputController} from '~/components/FormController';
 import {AddIcon, CheckIcon, CloseIcon} from '~/components/Icon';
 import {Tooltip} from '~/components/Tooltip';
+import Typist from '~/components/Typist/Typist';
 
 type SuccessActionData = {
   success: true;
@@ -124,7 +124,7 @@ const Index = () => {
               <a
                 href={socialURL}
                 target="__blank"
-                className="dui-btn dui-btn-info dui-btn-sm"
+                className="dui-btn-info dui-btn-sm dui-btn"
               >
                 View
               </a>
