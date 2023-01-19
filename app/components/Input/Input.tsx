@@ -32,7 +32,7 @@ const Input: React.FC<Props> = ({
         name={name}
         id={name}
         className={mixClassName(
-          'dui-input dui-input-bordered',
+          'dui-input-bordered dui-input',
           error && 'dui-input-error',
         )}
         {...props}

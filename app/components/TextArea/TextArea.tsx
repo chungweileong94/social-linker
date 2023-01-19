@@ -28,7 +28,7 @@ const TextArea: React.FC<Props> = ({
         id={name}
         name={name}
         rows={rows}
-        className="dui-textarea dui-textarea-bordered h-24"
+        className="dui-textarea-bordered dui-textarea h-24"
         {...props}
       ></textarea>
       {!!helperText && (
