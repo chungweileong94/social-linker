@@ -26,8 +26,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-social-icons": "^5.15.0",
-    "react-text-typist": "1.1.0",
     "remix-validated-form": "^4.6.7",
+    "typewriter-effect": "^2.19.0",
     "uuid": "^9.0.0",
     "zod": "^3.20.2",
     "zod-form-data": "^1.2.4"
@@ -52,7 +52,8 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "react-social-icons@5.15.0": "patches/react-social-icons@5.15.0.patch"
+      "react-social-icons@5.15.0": "patches/react-social-icons@5.15.0.patch",
+      "typewriter-effect@2.19.0": "patches/typewriter-effect@2.19.0.patch"
     }
   }
 }

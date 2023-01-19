@@ -1,6 +1,9 @@
 lockfileVersion: 5.4
 
 patchedDependencies:
+  typewriter-effect@2.19.0:
+    hash: 4dapnmhr6eng2iuw7urfbk5ysy
+    path: patches/typewriter-effect@2.19.0.patch
   react-social-icons@5.15.0:
     hash: g5fqvtfrqannd7frff456reoi4
     path: patches/react-social-icons@5.15.0.patch
@@ -27,10 +30,10 @@ specifiers:
   react: ^18.2.0
   react-dom: ^18.2.0
   react-social-icons: ^5.15.0
-  react-text-typist: 1.1.0
   remix-validated-form: ^4.6.7
   tailwindcss: ^3.2.4
   typescript: ^4.9.4
+  typewriter-effect: ^2.19.0
   uuid: ^9.0.0
   zod: ^3.20.2
   zod-form-data: ^1.2.4
@@ -46,8 +49,8 @@ dependencies:
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-social-icons: 5.15.0_g5fqvtfrqannd7frff456reoi4_react@18.2.0
-  react-text-typist: 1.1.0_biqbaboplfbrettd7655fr4n2y
   remix-validated-form: 4.6.7_gd6xnhzlbmgwjklncuy626fj3e
+  typewriter-effect: 2.19.0_4dapnmhr6eng2iuw7urfbk5ysy_biqbaboplfbrettd7655fr4n2y
   uuid: 9.0.0
   zod: 3.20.2
   zod-form-data: 1.2.4_zod@3.20.2
@@ -6686,6 +6689,10 @@ packages:
       through2: 2.0.5
     dev: true
 
+  /performance-now/2.1.0:
+    resolution: {integrity: sha512-7EAHlyLHI56VEIdK57uwHdHKIaAGbnXPiw0yWbarQZOKaKpvUIgW0jWRVLiatnM+XXlSwsanIBH/hzGMJulMow==}
+    dev: false
+
   /periscopic/3.0.4:
     resolution: {integrity: sha512-SFx68DxCv0Iyo6APZuw/AKewkkThGwssmU0QWtTlvov3VAtPX+QJ4CadwSaz8nrT5jPIuxdvJWB4PnD2KNDxQg==}
     dependencies:
@@ -6944,6 +6951,12 @@ packages:
     resolution: {integrity: sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==}
     engines: {node: '>=10'}
 
+  /raf/3.4.1:
+    resolution: {integrity: sha512-Sq4CW4QhwOHE8ucn6J34MqtZCeWFP2aQSmrlroYgqAV1PjStIhJXxYuTgUIfkEk7zTLjmIjLmU5q+fbD1NnOJA==}
+    dependencies:
+      performance-now: 2.1.0
+    dev: false
+
   /range-parser/1.2.1:
     resolution: {integrity: sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==}
     engines: {node: '>= 0.6'}
@@ -7003,17 +7016,6 @@ packages:
       react: 18.2.0
     dev: false
     patched: true
-
-  /react-text-typist/1.1.0_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-kP7rRHVS1gJX+ZJa6EzhMBk19S7Ex+vzahbMw8EWXALy3UpTHzlw4FnbwWqmBVKus224waWO+CNmNDmhAE1lEg==}
-    peerDependencies:
-      prop-types: '>15.7.2'
-      react: '>16.8.0'
-      react-dom: '>16.8.0'
-    dependencies:
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-    dev: false
 
   /react/18.2.0:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
@@ -8092,6 +8094,19 @@ packages:
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
+
+  /typewriter-effect/2.19.0_4dapnmhr6eng2iuw7urfbk5ysy_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-rhUX1ukmAXNFWUnMFx8CDU1uLWJQ7pRYzDU7WfHJRq43i6SmWSP9vFiUsOGfXINodUAgZiJ5xnzwLciHxZDGDg==}
+    peerDependencies:
+      react: ^17.x || ^18.x
+      react-dom: ^17.x || ^18.x
+    dependencies:
+      prop-types: 15.8.1
+      raf: 3.4.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+    patched: true
 
   /unbox-primitive/1.0.2:
     resolution: {integrity: sha512-61pPlCD9h51VoreyJ0BReideM3MDKMKnh6+V9L08331ipq6Q8OFXZYiqP6n/tbHx4s5I9uRhcye6BrbkizkBDw==}

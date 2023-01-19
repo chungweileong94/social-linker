@@ -6,6 +6,7 @@ import {v4 as uuidv4} from 'uuid';
 import {ValidatedForm, validationError} from 'remix-validated-form';
 import {withZod} from '@remix-validated-form/with-zod';
 import {useActionData, useTransition} from '@remix-run/react';
+import Typewriter from 'typewriter-effect';
 
 import {Button} from '~/components/Button';
 import {Input, LinkPreviewInput} from '~/components/Input';
@@ -14,7 +15,6 @@ import {encryptBioData} from '~/models/Bio.server';
 import {FormInputController} from '~/components/FormController';
 import {AddIcon, CheckIcon, CloseIcon} from '~/components/Icon';
 import {Tooltip} from '~/components/Tooltip';
-import Typist from '~/components/Typist/Typist';
 
 type SuccessActionData = {
   success: true;
@@ -89,13 +89,20 @@ const Index = () => {
     <div className="container mx-auto flex flex-col items-center py-20">
       <h1 className="min-h-[4rem] text-center text-2xl sm:text-3xl">
         Welcome to{' '}
-        <Typist
-          sentences={['SocialLinker', 'your Social Bio']}
-          startDelay={1000}
-          pauseTime={3000}
-          loop={false}
-          className="text-accent"
-        />
+        <span className="text-accent">
+          <Typewriter
+            component="span"
+            onInit={(typewriter) => {
+              typewriter
+                .pauseFor(1000)
+                .typeString('SocialLinker')
+                .pauseFor(3000)
+                .deleteAll()
+                .typeString('your Social Bio')
+                .start();
+            }}
+          />
+        </span>
       </h1>
       <p className="mb-20 text-sm opacity-50 sm:text-base">
         Create your own social bio now!
