@@ -1,6 +1,5 @@
 import React from 'react';
 import {useField} from 'remix-validated-form';
-import {GetInputProps} from 'remix-validated-form/dist/types/internal/getInputProps';
 
 import {Merge} from '~/utils/types';
 
@@ -8,7 +7,7 @@ type Props = {
   name: string;
   render: (
     inputProps: Merge<
-      ReturnType<GetInputProps>,
+      ReturnType<ReturnType<typeof useField>['getInputProps']>,
       {error: boolean; helperText?: string}
     >,
   ) => React.ReactElement;
