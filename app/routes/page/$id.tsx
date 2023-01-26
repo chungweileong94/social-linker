@@ -8,6 +8,9 @@ import {Bio, decryptBioData} from '~/models/Bio.server';
 type LoaderData = Bio;
 
 export const meta: MetaFunction = ({data}) => {
+  if (!data) {
+    return {title: undefined};
+  }
   const {title, desc} = data as LoaderData;
   return {title, description: desc};
 };
