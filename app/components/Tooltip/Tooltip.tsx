@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {classNameMapper, mixClassName} from '~/utils/styles';
+import {cvm, cn} from '~/utils/styles';
 
 type Props = {
   text: string;
@@ -27,9 +27,9 @@ const Tooltip: React.FC<Props> = ({
 }) => {
   return (
     <div
-      className={mixClassName(
+      className={cn(
         'dui-tooltip',
-        classNameMapper(color, {
+        cvm(color, {
           base: '',
           primary: 'dui-tooltip-primary',
           secondary: 'dui-tooltip-secondary',
@@ -39,7 +39,7 @@ const Tooltip: React.FC<Props> = ({
           warning: 'dui-tooltip-warning',
           error: 'dui-tooltip-error',
         }),
-        classNameMapper(position, {
+        cvm(position, {
           top: 'dui-tooltip-top',
           bottom: 'dui-tooltip-bottom',
           left: 'dui-tooltip-left',

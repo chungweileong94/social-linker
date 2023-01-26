@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {SocialIcon} from 'react-social-icons';
 
-import {mixClassName} from '~/utils/styles';
+import {cn} from '~/utils/styles';
 
 import Input from './Input';
 
@@ -21,12 +21,7 @@ const LinkPreviewInput: React.FC<Props> = ({
   };
 
   return (
-    <div
-      className={mixClassName(
-        'flex flex-1 flex-row items-center gap-3',
-        className,
-      )}
-    >
+    <div className={cn('flex flex-1 flex-row items-center gap-3', className)}>
       <div>
         <SocialIcon
           url={value}

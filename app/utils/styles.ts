@@ -1,18 +1,20 @@
+import {twMerge} from 'tailwind-merge';
+
 /**
- * Combine class names
+ * Concatenate CSS classes & sanitize tailwind classes
  */
-export const mixClassName = (
-  ...classNames: (string | boolean | undefined)[]
-) => {
-  return classNames.filter((cn) => !!cn).join(' ');
+export const cn = (...classNames: (string | boolean | undefined)[]) => {
+  return twMerge(classNames.filter((className) => !!className).join(' '));
 };
 
 /**
- * Map value to class name
+ * Class variant mapper
+ *
+ * @description Map a variant value to a CSS class name
  */
-export const classNameMapper = <TValue extends string>(
-  value: TValue,
-  classNameMap: Record<TValue, string>,
+export const cvm = <TVariant extends string>(
+  value: TVariant,
+  variantClassMap: Record<TVariant, string>,
 ) => {
-  return classNameMap[value];
+  return variantClassMap[value];
 };

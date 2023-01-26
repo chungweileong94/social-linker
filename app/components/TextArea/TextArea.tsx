@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {mixClassName} from '~/utils/styles';
+import {cn} from '~/utils/styles';
 
 type Props = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
   label: string;
@@ -18,9 +18,9 @@ const TextArea: React.FC<Props> = ({
   ...props
 }) => {
   return (
-    <div className={mixClassName('dui-form-control', className)}>
+    <div className={cn('dui-form-control', className)}>
       <label htmlFor={name} className="dui-label">
-        <span className={mixClassName('dui-label-text', error && 'text-error')}>
+        <span className={cn('dui-label-text', error && 'text-error')}>
           {label}
         </span>
       </label>
@@ -33,12 +33,7 @@ const TextArea: React.FC<Props> = ({
       ></textarea>
       {!!helperText && (
         <label className="dui-label">
-          <span
-            className={mixClassName(
-              'dui-label-text-alt',
-              error && 'text-error',
-            )}
-          >
+          <span className={cn('dui-label-text-alt', error && 'text-error')}>
             helperText
           </span>
         </label>

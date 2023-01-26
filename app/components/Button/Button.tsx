@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {classNameMapper, mixClassName} from '~/utils/styles';
+import {cvm, cn} from '~/utils/styles';
 
 type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'standard' | 'outline' | 'ghost';
@@ -31,14 +31,14 @@ const Button: React.FC<Props> = ({
 }) => {
   return (
     <button
-      className={mixClassName(
+      className={cn(
         'dui-btn gap-2',
-        classNameMapper(variant, {
+        cvm(variant, {
           standard: '',
           outline: 'dui-btn-outline',
           ghost: 'dui-btn-ghost',
         }),
-        classNameMapper(color, {
+        cvm(color, {
           base: '',
           primary: 'dui-btn-primary',
           secondary: 'dui-btn-secondary',
@@ -48,13 +48,13 @@ const Button: React.FC<Props> = ({
           warning: 'dui-btn-warning',
           error: 'dui-btn-error',
         }),
-        classNameMapper(size, {
+        cvm(size, {
           xs: 'dui-btn-xs',
           sm: 'dui-btn-sm',
           md: '',
           lg: 'dui-btn-lg',
         }),
-        classNameMapper(shape, {
+        cvm(shape, {
           normal: '',
           circle: 'dui-btn-circle',
           square: 'dui-btn-square',

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {mixClassName} from '~/utils/styles';
+import {cn} from '~/utils/styles';
 
 type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   label?: string;
@@ -18,12 +18,9 @@ const Input: React.FC<Props> = ({
   ...props
 }) => {
   return (
-    <div className={mixClassName('dui-form-control', className)}>
-      <label
-        htmlFor={name}
-        className={mixClassName('dui-label', !label && 'hidden')}
-      >
-        <span className={mixClassName('dui-label-text', error && 'text-error')}>
+    <div className={cn('dui-form-control', className)}>
+      <label htmlFor={name} className={cn('dui-label', !label && 'hidden')}>
+        <span className={cn('dui-label-text', error && 'text-error')}>
           {label}
         </span>
       </label>
@@ -31,7 +28,7 @@ const Input: React.FC<Props> = ({
         type={type}
         name={name}
         id={name}
-        className={mixClassName(
+        className={cn(
           'dui-input-bordered dui-input',
           error && 'dui-input-error',
         )}
@@ -39,12 +36,7 @@ const Input: React.FC<Props> = ({
       />
       {!!helperText && (
         <label className="dui-label">
-          <span
-            className={mixClassName(
-              'dui-label-text-alt',
-              error && 'text-error',
-            )}
-          >
+          <span className={cn('dui-label-text-alt', error && 'text-error')}>
             {helperText}
           </span>
         </label>
