@@ -1,10 +1,10 @@
-import {twMerge} from 'tailwind-merge';
+import { twMerge } from "tailwind-merge";
 
 /**
  * Concatenate CSS classes & sanitize tailwind classes
  */
 export const cn = (...classNames: (string | boolean | undefined)[]) => {
-  return twMerge(classNames.filter((className) => !!className).join(' '));
+  return twMerge(classNames.filter((className) => !!className).join(" "));
 };
 
 /**

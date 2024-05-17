@@ -12,7 +12,8 @@
     "dev:css": "yarn generate:css --watch",
     "dev:remix": "remix dev",
     "generate:css": "npx tailwindcss -i ./styles/tailwind.css -o ./app/styles/tailwind.css",
-    "lint": "tsc && eslint app --ext .js,.jsx,.ts,.tsx",
+    "typecheck": "tsc",
+    "lint": "biome check .",
     "dotenv-pull": "npx dotenv-vault@latest pull"
   },
   "dependencies": {
@@ -34,19 +35,19 @@
     "zod-form-data": "^1.2.4"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.7.3",
     "@remix-run/dev": "^1.11.1",
     "@remix-run/serve": "^1.11.1",
+    "@total-typescript/tsconfig": "^1.0.4",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@types/tailwindcss": "^3.1.0",
     "@types/uuid": "^9.0.0",
-    "eslint": "^8.32.0",
-    "eslint-config-whiteroom": "2.1.4",
     "npm-run-all": "^4.1.5",
-    "prettier": "2.8.3",
-    "prettier-plugin-tailwindcss": "^0.2.2",
+    "prettier": "3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.14",
     "tailwindcss": "^3.2.4",
-    "typescript": "^4.9.4"
+    "typescript": "^5.4.5"
   },
   "engines": {
     "node": ">=14"

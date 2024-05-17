@@ -1,8 +1,9 @@
-import React from 'react';
+import type React from "react";
 
 const CloseIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg
+      role="graphics-symbol"
       width="24"
       height="24"
       viewBox="0 0 24 24"

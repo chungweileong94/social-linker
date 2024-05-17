@@ -1,36 +1,37 @@
-import {ActionArgs, json, MetaFunction} from '@remix-run/node';
-import {useState} from 'react';
-import {z} from 'zod';
-import {zfd} from 'zod-form-data';
-import {v4 as uuidv4} from 'uuid';
-import {ValidatedForm, validationError} from 'remix-validated-form';
-import {withZod} from '@remix-validated-form/with-zod';
-import {useActionData, useTransition} from '@remix-run/react';
-import Typewriter from 'typewriter-effect';
+import { type ActionArgs, type MetaFunction, json } from "@remix-run/node";
+import { useActionData, useTransition } from "@remix-run/react";
+import { withZod } from "@remix-validated-form/with-zod";
+import { useState } from "react";
+import { ValidatedForm, validationError } from "remix-validated-form";
+import Typewriter from "typewriter-effect";
+import { v4 as uuidv4 } from "uuid";
+import { z } from "zod";
+import { zfd } from "zod-form-data";
 
-import {Button} from '~/components/Button';
-import {Input, LinkPreviewInput} from '~/components/Input';
-import {TextArea} from '~/components/TextArea';
-import {encryptBioData} from '~/models/Bio.server';
-import {FormInputController} from '~/components/FormController';
-import {AddIcon, CheckIcon, CloseIcon} from '~/components/Icon';
-import {Tooltip} from '~/components/Tooltip';
+import { Button } from "~/components/Button";
+import { FormInputController } from "~/components/FormController";
+import { AddIcon, CheckIcon, CloseIcon } from "~/components/Icon";
+import { Input, LinkPreviewInput } from "~/components/Input";
+import { TextArea } from "~/components/TextArea";
+import { Tooltip } from "~/components/Tooltip";
+import { encryptBioData } from "~/models/Bio.server";
 
 type SuccessActionData = {
   success: true;
   data: string;
 };
 
+// biome-ignore lint/suspicious/noExplicitAny: TODO: Figure out a better way
 const isSuccessActionData = (response: any): response is SuccessActionData =>
   !!response?.success;
 
 const formValidator = withZod(
   zfd.formData({
-    title: z.string().min(1, 'Title is required'),
+    title: z.string().min(1, "Title is required"),
     desc: z.string().optional(),
     links: z.array(
       z.object({
-        value: z.string().url('Invalid URL'),
+        value: z.string().url("Invalid URL"),
       }),
     ),
   }),
@@ -38,12 +39,12 @@ const formValidator = withZod(
 
 export const meta: MetaFunction = () => {
   return {
-    title: 'Generate Social Bio | Social Linker',
-    description: 'Generate your own social bio',
+    title: "Generate Social Bio | Social Linker",
+    description: "Generate your own social bio",
   };
 };
 
-export const action = async ({request}: ActionArgs) => {
+export const action = async ({ request }: ActionArgs) => {
   const formData = await request.formData();
   const data = await formValidator.validate(formData);
   if (data.error) return validationError(data.error);
@@ -51,7 +52,7 @@ export const action = async ({request}: ActionArgs) => {
   const encryptedBioString = encryptBioData(data.data);
   return json<SuccessActionData>({
     success: true,
-    data: `${request.headers.get('origin')}/page/${encryptedBioString}`,
+    data: `${request.headers.get("origin")}/page/${encryptedBioString}`,
   });
 };
 
@@ -60,8 +61,8 @@ const Index = () => {
   const socialURL = isSuccessActionData(actionData)
     ? actionData.data
     : undefined;
-  const {state} = useTransition();
-  const loading = state !== 'idle';
+  const { state } = useTransition();
+  const loading = state !== "idle";
   const [linkIds, setLinkIds] = useState<string[]>([uuidv4()]);
   const [isCopied, setIsCopied] = useState<boolean>(false);
 
@@ -88,17 +89,17 @@ const Index = () => {
   return (
     <div className="container mx-auto flex flex-col items-center py-20">
       <h1 className="min-h-[4rem] text-center text-2xl sm:text-3xl">
-        Welcome to{' '}
+        Welcome to{" "}
         <span className="text-accent">
           <Typewriter
             component="span"
             onInit={(typewriter) => {
               typewriter
                 .pauseFor(1000)
-                .typeString('SocialLinker')
+                .typeString("SocialLinker")
                 .pauseFor(3000)
                 .deleteAll()
-                .typeString('your Social Bio')
+                .typeString("your Social Bio")
                 .start();
             }}
           />
@@ -119,7 +120,7 @@ const Index = () => {
               <span>Your social bio page is ready!</span>
             </div>
             <div className="flex-none">
-              <Tooltip text={isCopied ? 'Copied' : 'Copy Link'}>
+              <Tooltip text={isCopied ? "Copied" : "Copy Link"}>
                 <Button
                   size="sm"
                   variant="ghost"

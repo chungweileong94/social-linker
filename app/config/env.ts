@@ -1,6 +1,6 @@
-require('dotenv-vault-core').config();
+require("dotenv-vault-core").config();
 
-import {z} from 'zod';
+import { z } from "zod";
 
 const envSchema = z.object({
   ENCRYPTION_KEY: z.string(),

@@ -5,5 +5,5 @@ type Copy<T> = {
 export type Merge<T, U> = T extends null
   ? null
   : T extends undefined
-  ? undefined
-  : Copy<Omit<T, keyof T & keyof U> & U>;
+    ? undefined
+    : Copy<Omit<T, keyof T & keyof U> & U>;

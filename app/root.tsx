@@ -1,4 +1,4 @@
-import type {LinksFunction, MetaFunction} from '@remix-run/node';
+import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -8,32 +8,32 @@ import {
   // eslint-disable-next-line @typescript-eslint/no-redeclare
   ScrollRestoration,
   useCatch,
-} from '@remix-run/react';
+} from "@remix-run/react";
 
-import styles from './styles/tailwind.css';
+import styles from "./styles/tailwind.css";
 
 export const links: LinksFunction = () => {
   return [
-    {rel: 'stylesheet', href: styles},
-    {rel: 'preconnect', href: 'https://fonts.googleapis.com'},
-    {rel: 'preconnect', href: 'https://fonts.gstatic.com'},
+    { rel: "stylesheet", href: styles },
+    { rel: "preconnect", href: "https://fonts.googleapis.com" },
+    { rel: "preconnect", href: "https://fonts.gstatic.com" },
     {
-      rel: 'stylesheet',
-      href: 'https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600&display=swap',
+      rel: "stylesheet",
+      href: "https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600&display=swap",
     },
   ];
 };
 
 export const meta: MetaFunction = () => ({
-  charset: 'utf-8',
-  title: 'New Remix App',
-  viewport: 'width=device-width,initial-scale=1',
+  charset: "utf-8",
+  title: "New Remix App",
+  viewport: "width=device-width,initial-scale=1",
 });
 
 export const CatchBoundary = () => {
   const caught = useCatch();
   return (
-    <html>
+    <html lang="en">
       <head>
         <title>
           {caught.status} - {caught.statusText}
