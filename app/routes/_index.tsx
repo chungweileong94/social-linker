@@ -1,5 +1,9 @@
-import { type ActionArgs, type MetaFunction, json } from "@remix-run/node";
-import { useActionData, useTransition } from "@remix-run/react";
+import {
+  type ActionFunctionArgs,
+  type MetaFunction,
+  json,
+} from "@remix-run/node";
+import { useActionData, useNavigation } from "@remix-run/react";
 import { withZod } from "@remix-validated-form/with-zod";
 import { useState } from "react";
 import { ValidatedForm, validationError } from "remix-validated-form";
@@ -38,13 +42,15 @@ const formValidator = withZod(
 );
 
 export const meta: MetaFunction = () => {
-  return {
-    title: "Generate Social Bio | Social Linker",
-    description: "Generate your own social bio",
-  };
+  return [
+    {
+      title: "Generate Social Bio | Social Linker",
+      description: "Generate your own social bio",
+    },
+  ];
 };
 
-export const action = async ({ request }: ActionArgs) => {
+export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
   const data = await formValidator.validate(formData);
   if (data.error) return validationError(data.error);
@@ -61,7 +67,7 @@ const Index = () => {
   const socialURL = isSuccessActionData(actionData)
     ? actionData.data
     : undefined;
-  const { state } = useTransition();
+  const { state } = useNavigation();
   const loading = state !== "idle";
   const [linkIds, setLinkIds] = useState<string[]>([uuidv4()]);
   const [isCopied, setIsCopied] = useState<boolean>(false);

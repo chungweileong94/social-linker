@@ -1,7 +1,6 @@
 import {
-  type LoaderArgs,
+  type LoaderFunctionArgs,
   type MetaFunction,
-  Response,
   json,
 } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
@@ -13,13 +12,13 @@ type LoaderData = Bio;
 
 export const meta: MetaFunction = ({ data }) => {
   if (!data) {
-    return { title: undefined };
+    return [{ title: undefined }];
   }
   const { title, desc } = data as LoaderData;
-  return { title, description: desc };
+  return [{ title, description: desc }];
 };
 
-export const loader = async ({ params }: LoaderArgs) => {
+export const loader = async ({ params }: LoaderFunctionArgs) => {
   const pageId = params.id;
   if (!pageId) {
     throw new Response(undefined, { status: 404 });

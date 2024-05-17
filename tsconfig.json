@@ -8,10 +8,11 @@
     }
   },
   "include": [
-    "remix.env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "server.js",
-    "**/*.config.js"
+    "**/.server/**/*.ts",
+    "**/.server/**/*.tsx",
+    "**/.client/**/*.ts",
+    "**/.client/**/*.tsx"
   ]
 }
