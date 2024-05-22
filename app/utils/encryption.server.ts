@@ -9,7 +9,7 @@ const IV_LENGTH = 16; // For AES, this is always 16
 /**
  * Encrypt text
  */
-export const encryptText = (text: string): string => {
+export function encryptText(text: string) {
   const iv = crypto.randomBytes(IV_LENGTH);
   const cipher = crypto.createCipheriv(
     ALGORITHM,
@@ -20,12 +20,12 @@ export const encryptText = (text: string): string => {
   let encryptedText = cipher.update(text);
   encryptedText = Buffer.concat([encryptedText, cipher.final()]);
   return `${iv.toString("hex")}:${encryptedText.toString("hex")}`;
-};
+}
 
 /**
  * Decrypt text
  */
-export const decryptText = (text: string): string => {
+export function decryptText(text: string) {
   const parts = text.split(":");
   const iv = Buffer.from(parts.shift() as string, "hex");
   const encryptedText = Buffer.from(parts.join(":"), "hex");
@@ -38,4 +38,4 @@ export const decryptText = (text: string): string => {
   let decryptedText = decipher.update(encryptedText);
   decryptedText = Buffer.concat([decryptedText, decipher.final()]);
   return decryptedText.toString();
-};
+}

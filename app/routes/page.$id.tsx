@@ -7,7 +7,7 @@ import { useLoaderData } from "@remix-run/react";
 import { SocialLink } from "~/components/SocialLink";
 import { decryptBioData } from "~/models/Bio.server";
 
-export const loader = async ({ params }: LoaderFunctionArgs) => {
+export async function loader({ params }: LoaderFunctionArgs) {
   const pageId = params.id;
   if (!pageId) {
     throw new Response(undefined, { status: 404 });
@@ -22,7 +22,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
       statusText: "Sorry, we not able to retrieve the bio 😥",
     });
   }
-};
+}
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
   if (!data) {

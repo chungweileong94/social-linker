@@ -61,7 +61,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   });
 };
 
-const Index = () => {
+export default function Index() {
   const actionData = useActionData<typeof action>();
   const socialURL = isSuccessActionData(actionData)
     ? actionData.data
@@ -77,19 +77,19 @@ const Index = () => {
     setIsCopied(false);
   }
 
-  const handleAddLink = () => {
+  function handleAddLink() {
     setLinkIds((prev) => [...prev, uuidv4()]);
-  };
+  }
 
-  const handleRemoveLink = (id: string) => {
+  function handleRemoveLink(id: string) {
     setLinkIds((prev) => prev.filter((linkId) => linkId !== id));
-  };
+  }
 
-  const handleCopySocialBioLink = async () => {
+  async function handleCopySocialBioLink() {
     if (!socialURL) return;
     await navigator.clipboard.writeText(socialURL);
     setIsCopied(true);
-  };
+  }
 
   return (
     <div className="container mx-auto flex flex-col items-center py-20">
@@ -212,6 +212,4 @@ const Index = () => {
       </ValidatedForm>
     </div>
   );
-};
-
-export default Index;
+}
