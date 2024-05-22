@@ -4,19 +4,8 @@ import {
   json,
 } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-
 import { SocialLink } from "~/components/SocialLink";
-import { type Bio, decryptBioData } from "~/models/Bio.server";
-
-type LoaderData = Bio;
-
-export const meta: MetaFunction = ({ data }) => {
-  if (!data) {
-    return [{ title: undefined }];
-  }
-  const { title, desc } = data as LoaderData;
-  return [{ title, description: desc }];
-};
+import { decryptBioData } from "~/models/Bio.server";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const pageId = params.id;
@@ -26,13 +15,21 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 
   try {
     const bioData = decryptBioData(pageId);
-    return json<LoaderData>(bioData);
+    return json(bioData);
   } catch {
     throw new Response(undefined, {
       status: 500,
       statusText: "Sorry, we not able to retrieve the bio 😥",
     });
   }
+};
+
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  if (!data) {
+    throw new Error("Failed to get bio data");
+  }
+  const { title, desc } = data;
+  return [{ title, description: desc }];
 };
 
 const BioPage = () => {

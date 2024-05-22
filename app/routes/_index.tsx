@@ -11,7 +11,6 @@ import Typewriter from "typewriter-effect";
 import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 import { zfd } from "zod-form-data";
-
 import { Button } from "~/components/Button";
 import { FormInputController } from "~/components/FormController";
 import { AddIcon, CheckIcon, CloseIcon } from "~/components/Icon";
@@ -25,9 +24,9 @@ type SuccessActionData = {
   data: string;
 };
 
-// biome-ignore lint/suspicious/noExplicitAny: TODO: Figure out a better way
-const isSuccessActionData = (response: any): response is SuccessActionData =>
-  !!response?.success;
+const isSuccessActionData = (
+  response: Record<string, unknown> | undefined,
+): response is SuccessActionData => !!response?.["success"];
 
 const formValidator = withZod(
   zfd.formData({

@@ -1,10 +1,10 @@
 import { decryptText, encryptText } from "~/utils/encryption.server";
 
-export type Bio = {
+interface Bio {
   title: string;
   desc?: string;
   links: Array<{ value: string }>;
-};
+}
 
 export const encryptBioData = (bio: Bio) => {
   const base64String = Buffer.from(JSON.stringify(bio)).toString("base64");
