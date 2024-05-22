@@ -120,12 +120,15 @@ const Index = () => {
         className="grid w-full gap-4"
       >
         {!loading && !!socialURL && (
-          <div id="result" className="dui-alert sticky top-4 mb-4 shadow-lg">
-            <div>
+          <div
+            id="result"
+            className="dui-alert sticky top-4 mb-4 flex flex-row shadow-lg"
+          >
+            <div className="flex flex-1 flex-row items-center gap-2">
               <CheckIcon className="h-6 w-6 flex-shrink-0 text-success" />
               <span>Your social bio page is ready!</span>
             </div>
-            <div className="flex-none">
+            <div className="flex flex-row gap-2">
               <Tooltip text={isCopied ? "Copied" : "Copy Link"}>
                 <Button
                   size="sm"
