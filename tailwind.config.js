@@ -4,7 +4,7 @@
  * @type {import('tailwindcss/tailwind-config').TailwindConfig}
  */
 module.exports = {
-  content: ['./app/**/*.{ts,tsx,jsx,js}', './node_modules/flowbite/**/*.js'],
+  content: ['./app/**/*.{ts,tsx,jsx,js}'],
   theme: {
     container: {
       padding: {

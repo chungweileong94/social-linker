@@ -1,1 +1,1 @@
-export {default as FormInputController} from './FormInputController';
+export { default as FormInputController } from "./FormInputController";

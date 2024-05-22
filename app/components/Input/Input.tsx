@@ -1,6 +1,6 @@
-import React from 'react';
+import type React from "react";
 
-import {cn} from '~/utils/styles';
+import { cn } from "~/utils/styles";
 
 type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   label?: string;
@@ -9,7 +9,7 @@ type Props = React.InputHTMLAttributes<HTMLInputElement> & {
 };
 
 const Input: React.FC<Props> = ({
-  type = 'text',
+  type = "text",
   name,
   label,
   className,
@@ -18,9 +18,9 @@ const Input: React.FC<Props> = ({
   ...props
 }) => {
   return (
-    <div className={cn('dui-form-control', className)}>
-      <label htmlFor={name} className={cn('dui-label', !label && 'hidden')}>
-        <span className={cn('dui-label-text', error && 'text-error')}>
+    <div className={cn("dui-form-control", className)}>
+      <label htmlFor={name} className={cn("dui-label", !label && "hidden")}>
+        <span className={cn("dui-label-text", error && "text-error")}>
           {label}
         </span>
       </label>
@@ -29,14 +29,14 @@ const Input: React.FC<Props> = ({
         name={name}
         id={name}
         className={cn(
-          'dui-input-bordered dui-input',
-          error && 'dui-input-error',
+          "dui-input-bordered dui-input",
+          error && "dui-input-error",
         )}
         {...props}
       />
       {!!helperText && (
         <label className="dui-label">
-          <span className={cn('dui-label-text-alt', error && 'text-error')}>
+          <span className={cn("dui-label-text-alt", error && "text-error")}>
             {helperText}
           </span>
         </label>

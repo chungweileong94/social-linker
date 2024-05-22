@@ -1,6 +1,6 @@
-import React from 'react';
+import type React from "react";
 
-import {cn} from '~/utils/styles';
+import { cn } from "~/utils/styles";
 
 type Props = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
   label: string;
@@ -18,9 +18,9 @@ const TextArea: React.FC<Props> = ({
   ...props
 }) => {
   return (
-    <div className={cn('dui-form-control', className)}>
+    <div className={cn("dui-form-control", className)}>
       <label htmlFor={name} className="dui-label">
-        <span className={cn('dui-label-text', error && 'text-error')}>
+        <span className={cn("dui-label-text", error && "text-error")}>
           {label}
         </span>
       </label>
@@ -30,10 +30,10 @@ const TextArea: React.FC<Props> = ({
         rows={rows}
         className="dui-textarea-bordered dui-textarea h-24"
         {...props}
-      ></textarea>
+      />
       {!!helperText && (
         <label className="dui-label">
-          <span className={cn('dui-label-text-alt', error && 'text-error')}>
+          <span className={cn("dui-label-text-alt", error && "text-error")}>
             helperText
           </span>
         </label>

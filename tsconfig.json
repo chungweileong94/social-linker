@@ -1,33 +1,18 @@
 {
-  "include": [
-    "remix.env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "server.js",
-    "**/*.config.js"
-  ],
+  "extends": "@total-typescript/tsconfig/bundler/dom/app",
   "compilerOptions": {
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ES2019"
-    ],
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "jsx": "react-jsx",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "target": "ES2019",
-    "strict": true,
+    "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "~/*": [
-        "./app/*"
-      ]
-    },
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true,
-    "allowJs": true,
-    "skipLibCheck": true
-  }
+      "~/*": ["./app/*"]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/.server/**/*.ts",
+    "**/.server/**/*.tsx",
+    "**/.client/**/*.ts",
+    "**/.client/**/*.tsx"
+  ]
 }
